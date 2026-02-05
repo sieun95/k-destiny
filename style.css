@@ -1,262 +1,99 @@
-:root {
-    --bg-color: #111111;
-    --card-bg: rgba(25, 25, 35, 0.9);
-    --primary-gold: #d4af37;
-    --secondary-red: #8b0000;
-    --text-white: #f0f0f0;
-    --text-gray: #a0a0a0;
-    --font-serif: 'Noto Serif KR', serif;
-    --font-sans: 'Noto Sans KR', sans-serif;
+/* Custom Styles for K-Destiny (With Tailwind) */
+
+/* Background Stars */
+.bg-night {
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+.stars {
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  box-shadow:
+    1744px 122px #fff,
+    134px 1321px #fff,
+    456px 876px #fff,
+    876px 123px #fff,
+    1200px 800px #fff,
+    400px 500px #fff,
+    900px 200px #fff,
+    1500px 600px #fff,
+    200px 1000px #fff,
+    1800px 400px #fff;
+  animation: animStar 100s linear infinite;
 }
 
-body {
-    font-family: var(--font-sans);
-    background-color: var(--bg-color);
-    color: var(--text-white);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-image: radial-gradient(circle at 50% 10%, #2a2a40 0%, #111111 80%);
+.stars:after {
+  content: " ";
+  position: absolute;
+  top: 2000px;
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  box-shadow:
+    1744px 122px #fff,
+    134px 1321px #fff,
+    456px 876px #fff,
+    876px 123px #fff,
+    1200px 800px #fff,
+    400px 500px #fff,
+    900px 200px #fff,
+    1500px 600px #fff,
+    200px 1000px #fff,
+    1800px 400px #fff;
 }
 
-.background-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('https://www.transparenttextures.com/patterns/stardust.png');
-    opacity: 0.3;
-    pointer-events: none;
-    z-index: -1;
+@keyframes animStar {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-2000px);
+  }
 }
 
-header {
-    text-align: center;
-    margin-top: 3rem;
-    margin-bottom: 2rem;
+/* Glassmorphism Panel */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-header h1 {
-    font-family: var(--font-serif);
-    color: var(--primary-gold);
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+/* Custom Spinner */
+.mystic-spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  border-top-color: #ffd700;
+  animation: spin 1s ease-in-out infinite;
 }
 
-header p {
-    color: var(--text-gray);
-    font-size: 1rem;
-    letter-spacing: 2px;
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.container {
-    width: 100%;
-    max-width: 600px;
-    padding: 0 1rem;
-    flex: 1;
+/* Background Glow */
+.highlight-gradient {
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(76, 29, 149, 0.2),
+    transparent 70%
+  );
 }
 
-.card {
-    background-color: var(--card-bg);
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    border-radius: 12px;
-    padding: 2rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    margin-bottom: 2rem;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+/* Form Input Override */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.5;
+  cursor: pointer;
 }
 
-.hidden {
-    display: none;
-    opacity: 0;
-}
-
-.fade-in {
-    animation: fadeIn 0.8s ease-out forwards;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-h2 {
-    font-family: var(--font-serif);
-    color: var(--text-white);
-    text-align: center;
-    margin-bottom: 1.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 1rem;
-}
-
-/* Form Styles */
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: var(--primary-gold);
-    font-size: 0.9rem;
-}
-
-input[type="text"],
-input[type="date"],
-input[type="time"] {
-    width: 100%;
-    padding: 12px;
-    background-color: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 6px;
-    color: white;
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    transition: border-color 0.3s;
-}
-
-input:focus {
-    outline: none;
-    border-color: var(--primary-gold);
-}
-
-/* Radio Group */
-.radio-group {
-    display: flex;
-    gap: 1rem;
-}
-
-.radio-label {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--text-gray);
-}
-
-.radio-label input {
-    accent-color: var(--primary-gold);
-}
-
-.btn-submit {
-    width: 100%;
-    padding: 1rem;
-    background: linear-gradient(135deg, var(--primary-gold), #b8860b);
-    color: #000;
-    border: none;
-    border-radius: 6px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.btn-submit:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
-}
-
-/* Result Styles */
-.result-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 1rem;
-}
-
-.btn-text {
-    background: none;
-    border: none;
-    color: var(--text-gray);
-    text-decoration: underline;
-    cursor: pointer;
-    font-size: 0.8rem;
-}
-
-.result-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-}
-
-.result-item {
-    background-color: rgba(255, 255, 255, 0.03);
-    border-radius: 8px;
-    padding: 1.5rem;
-    text-align: center;
-}
-
-.full-width {
-    grid-column: span 2;
-}
-
-.icon {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-}
-
-.result-item h3 {
-    color: var(--text-gray);
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-}
-
-.highlight {
-    color: var(--primary-gold);
-    font-size: 1.5rem;
-    font-family: var(--font-serif);
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-}
-
-.highlight-large {
-    color: var(--primary-gold);
-    font-size: 2rem;
-    font-family: var(--font-serif);
-    font-weight: bold;
-    margin-bottom: 1rem;
-}
-
-.desc {
-    font-size: 0.8rem;
-    color: var(--text-gray);
-    line-height: 1.4;
-}
-
-.desc-long {
-    font-size: 0.9rem;
-    color: var(--text-white);
-    line-height: 1.6;
-    white-space: pre-line;
-}
-
-footer {
-    text-align: center;
-    padding: 2rem;
-    color: #444;
-    font-size: 0.8rem;
-}
-
-/* Mobile Responsive */
-@media (max-width: 480px) {
-    .result-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .full-width {
-        grid-column: span 1;
-    }
-
-    header h1 {
-        font-size: 2rem;
-    }
+input[type="date"]::-webkit-calendar-picker-indicator:hover,
+input[type="time"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
 }

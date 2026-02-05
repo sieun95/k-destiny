@@ -3,46 +3,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const inputSection = document.getElementById("input-section");
   const resultSection = document.getElementById("result-section");
   const btnReset = document.getElementById("btn-reset");
-
-  // 천간 (10간)
-  const heavenlyStems = [
-    "경(庚)",
-    "신(辛)",
-    "임(壬)",
-    "계(癸)",
-    "갑(甲)",
-    "을(乙)",
-    "병(丙)",
-    "정(丁)",
-    "무(戊)",
-    "기(己)",
-  ];
-
-  // 지지 (12지) - 띠
-  const earthlyBranches = [
-    "신(申)",
-    "유(酉)",
-    "술(戌)",
-    "해(亥)",
-    "자(子)",
-    "축(丑)",
-    "인(寅)",
-    "묘(卯)",
-    "진(辰)",
-    "사(巳)",
-    "오(午)",
-    "미(未)",
-  ];
-
-  // 띠 동물
-  const zodiacAnimals = ["원숭이", "닭", "개", "돼지", "쥐", "소", "호랑이", "토끼", "용", "뱀", "말", "양"];
+  
+  // 전역 변수에서 데이터 로드 (CORS 해결)
+  const fortuneData = window.FORTUNE_DATA;
+  
+  if (!fortuneData) {
+      console.error("Fortune data not found in window object.");
+      alert("데이터를 불러오는데 실패했습니다. 새로고침 해주세요.");
+      return;
+  }
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
     const username = document.getElementById("username").value;
     const birthdate = document.getElementById("birthdate").value;
-    const birthtime = document.getElementById("birthtime").value;
 
     if (!birthdate) return alert("생년월일을 입력해주세요.");
 
@@ -52,73 +27,77 @@ document.addEventListener("DOMContentLoaded", () => {
     const day = dateObj.getDate();
 
     // 1. 띠 & 간지 계산 (양력 기준 간이 계산)
-    // 실제 사주는 입춘을 기준으로 바뀌지만, 여기서는 편의상 양력 1월 1일 기준으로 계산합니다.
-    const stemIndex = year % 10;
-    const branchIndex = year % 12;
+    // 0~9 (갑~계)
+    const stems = ["경", "신", "임", "계", "갑", "을", "병", "정", "무", "기"];
+    // 0~11 (신~미)
+    const branches = ["신", "유", "술", "해", "자", "축", "인", "묘", "진", "사", "오", "미"];
+    
+    // 매핑용 키 (한글 1글자) -> JSON 키
+    const stemKey = stems[year % 10];
+    const branchKey = branches[year % 12];
+    
+    const stemData = fortuneData.heavenlyStems[stemKey]; // { element, keyword, desc }
+    const branchData = fortuneData.earthlyBranches[branchKey]; // { animal, trait, ... }
 
-    const stem = heavenlyStems[stemIndex];
-    const branch = earthlyBranches[branchIndex];
-    const animal = zodiacAnimals[branchIndex];
-
-    const ganji = `${stem[2]}${branch[2]}년 (${animal}띠)`;
+    // 간지 문자열 (예: 갑자, 병인)
+    const ganjiChar = `${stemKey}${branchKey}`;
+    const animalChar = branchData.animal;
 
     // 2. 별자리 계산
-    const constellation = getConstellation(month, day);
+    const constellation = getConstellation(fortuneData.constellations, month, day);
 
-    // 결과 표시
-    document.getElementById("result-name").textContent = `${username}님의 사주/별자리 정보`;
-    document.getElementById("result-zodiac-kr").textContent = animal;
+    // 결과 텍스트 조합
+    document.getElementById("result-name").textContent = `${username} 님`;
+    document.getElementById("result-ganji").textContent = `${ganjiChar}년 (${animalChar}띠)`;
+    
+    // 사주 설명 조합 (밝은 배경에 맞는 텍스트 색상)
+    const sajuDesc = `
+        <strong class="text-[#8b5a2b] font-bold">"${stemData.keyword}"의 기운과 "${animalChar}"의 성향</strong><br>
+        하늘에서는 <span class="font-bold text-gray-800">${stemData.element}</span>의 기운을, 땅에서는 ${branchData.trait} <br>
+        <span class="text-gray-500 text-xs mt-1 block">(${stemData.desc})</span>
+    `;
+    document.getElementById("result-saju-desc").innerHTML = sajuDesc;
+
+    // 별자리 설명 조합
     document.getElementById("result-constellation").textContent = constellation.name;
-    document.getElementById("result-ganji").textContent = ganji;
+    document.getElementById("result-star-desc").innerHTML = `
+        ${constellation.desc}
+    `;
 
-    // 간단한 설명 생성
-    const description = `
-            ${year}년에 태어난 당신은 ${stem[2]}${branch[2]}년생입니다.
-            하늘의 기운은 '${stem[0]}'이고 땅의 기운은 '${branch[0]}'입니다.
-            
-            서양 별자리는 ${constellation.name}이며, 
-            ${constellation.desc}
-        `;
-    document.getElementById("result-desc").textContent = description.trim();
-
-    // 화면 전환
+    // 화면 전환: 입력창 숨김 -> 로딩창 표시 -> 3초 후 결과창 표시
     inputSection.classList.add("hidden");
-    resultSection.classList.remove("hidden");
-    resultSection.classList.add("fade-in");
+    const loadingSection = document.getElementById("loading-section");
+    loadingSection.classList.remove("hidden");
+    
+    // 로딩바이크 스크롤 이동 (모바일 배려)
+    loadingSection.scrollIntoView({ behavior: 'smooth' });
+
+    setTimeout(() => {
+        loadingSection.classList.add("hidden");
+        resultSection.classList.remove("hidden");
+        // 결과창으로 스크롤 이동
+        resultSection.scrollIntoView({ behavior: 'smooth' });
+    }, 3000); // 3초 대기 (광고 노출 시간 확보)
   });
 
   btnReset.addEventListener("click", () => {
     resultSection.classList.add("hidden");
     inputSection.classList.remove("hidden");
-    inputSection.classList.add("fade-in");
+    // 입력창으로 스크롤 이동
+    inputSection.scrollIntoView({ behavior: 'smooth' });
     form.reset();
   });
 });
 
-function getConstellation(month, day) {
-  // 별자리 날짜 기준
-  const dates = [20, 19, 21, 20, 21, 22, 23, 23, 23, 24, 23, 22];
-  const constellations = [
-    { name: "염소자리", desc: "책임감이 강하고 목표를 향해 꾸준히 나아가는 성향입니다." },
-    { name: "물병자리", desc: "독창적이고 자유로운 영혼을 가진 혁신가입니다." },
-    { name: "물고기자리", desc: "감수성이 풍부하고 타인에 대한 공감 능력이 뛰어납니다." },
-    { name: "양자리", desc: "열정적이고 도전적인 리더십을 가지고 있습니다." },
-    { name: "황소자리", desc: "신중하고 우직하며 아름다움을 사랑하는 평화주의자입니다." },
-    { name: "쌍둥이자리", desc: "호기심이 많고 재치 있으며 소통 능력이 뛰어납니다." },
-    { name: "게자리", desc: "가정을 소중히 여기며 따뜻한 모성애/부성애를 가졌습니다." },
-    { name: "사자자리", desc: "자신감이 넘치고 주목받기를 좋아하는 타고난 스타입니다." },
-    { name: "처녀자리", desc: "섬세하고 분석적이며 완벽을 추구하는 성향입니다." },
-    { name: "천칭자리", desc: "조화와 균형을 중시하며 사교적인 매력이 있습니다." },
-    { name: "전갈자리", desc: "통찰력이 깊고 한번 마음먹은 것은 끝까지 해냅니다." },
-    { name: "사수자리", desc: "자유를 사랑하고 낙천적이며 모험을 즐깁니다." },
-    { name: "염소자리", desc: "책임감이 강하고 목표를 향해 꾸준히 나아가는 성향입니다." },
-  ];
+function getConstellation(constellations, month, day) {
+    // 별자리 날짜 기준
+    const dates = [20, 19, 21, 20, 21, 22, 23, 23, 23, 24, 23, 22];
+    
+    let index = month - 1;
+    if (day < dates[month - 1]) {
+        index = index - 1;
+        if (index < 0) index = 11; // 1월 초 -> 이전 해 12월(염소자리)
+    }
 
-  let index = month - 1;
-  if (day < dates[month - 1]) {
-    index = index - 1;
-    if (index < 0) index = 11; // 1월 초 -> 이전 해 12월(염소자리)
-  }
-
-  return constellations[index];
+    return constellations[index];
 }
