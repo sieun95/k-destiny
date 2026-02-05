@@ -87,6 +87,22 @@ document.addEventListener("DOMContentLoaded", () => {
     window.scrollTo(0, 0);
     form.reset();
   });
+
+  // 시간/분 입력 제한 (2자리, 범위 제한)
+  const hourInput = document.getElementById("time-hour");
+  const minuteInput = document.getElementById("time-minute");
+
+  // 시: 1~12, 최대 2자리
+  hourInput.addEventListener("input", function() {
+    if (this.value.length > 2) this.value = this.value.slice(0, 2);
+    if (parseInt(this.value) > 12) this.value = "12";
+  });
+
+  // 분: 0~59, 최대 2자리
+  minuteInput.addEventListener("input", function() {
+      if (this.value.length > 2) this.value = this.value.slice(0, 2);
+      if (parseInt(this.value) > 59) this.value = "59";
+  });
 });
 
 function getConstellation(constellations, month, day) {
