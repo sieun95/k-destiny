@@ -1,3 +1,6 @@
+// 전역 사용자 데이터 저장소
+let storedUserData = null;
+
 // 다국어 UI 텍스트 상수
 const UI_TEXT = {
     ko: {
@@ -22,6 +25,8 @@ const UI_TEXT = {
         labelOun: "귀하의 명운(命運)",
         labelSaju: "사주(四柱) - 띠",
         labelStar: "천문(天文) - 별자리",
+        labelCeleb: "운명의 단짝",
+        descCeleb: "* 이름을 누르면 검색됩니다",
         quote: "\"운명은 정해진 것이 아니라, <br>스스로 개척해 나가는 것입니다.\"",
         btnReset: "다시 기록하기"
     },
@@ -48,6 +53,8 @@ const UI_TEXT = {
         labelOun: "Your Destiny",
         labelSaju: "Four Pillars - Zodiac",
         labelStar: "Astronomy - Constellation",
+        labelCeleb: "Destiny Connection",
+        descCeleb: "* Click name to search",
         quote: "\"Destiny is not set in stone, <br>but carved by your own hands.\"",
         btnReset: "Record Again"
     }
@@ -92,91 +99,34 @@ document.addEventListener("DOMContentLoaded", () => {
     // 폼 제출 이벤트
     form.addEventListener("submit", (e) => {
       e.preventDefault();
-  
-      // 현재 언어에 맞는 데이터 로드
-      const fortuneData = currentLang === "ko" ? window.FORTUNE_DATA : window.FORTUNE_DATA_EN;
-      
-      if (!fortuneData) {
-          alert("Data load failed.");
-          return;
-      }
-  
+
       const username = document.getElementById("username").value;
       const birthdate = document.getElementById("birthdate").value;
   
       if (!birthdate) return alert(currentLang === 'ko' ? "생년월일을 입력해주세요." : "Please enter your birth date.");
-  
-      const dateObj = new Date(birthdate);
-      const year = dateObj.getFullYear();
-      const month = dateObj.getMonth() + 1;
-      const day = dateObj.getDate();
-  
-      // 1. 띠 & 간지 계산 (양력 기준 간이 계산)
-      const stems = ["경", "신", "임", "계", "갑", "을", "병", "정", "무", "기"];
-      const branches = ["신", "유", "술", "해", "자", "축", "인", "묘", "진", "사", "오", "미"];
-      
-      const stemKey = stems[year % 10];
-      const branchKey = branches[year % 12];
-      
-      const stemData = fortuneData.heavenlyStems[stemKey];
-      const branchData = fortuneData.earthlyBranches[branchKey];
-  
-      // 간지 문자열 (언어별 분기)
-      let ganjiChar, animalChar;
-      if (currentLang === 'ko') {
-          ganjiChar = `${stemKey}${branchKey}`;
-          animalChar = branchData.animal;
-      } else {
-          // 영어일 때는 "GapJa (Rat)" 처럼 표현하기 어려우므로 "Year of the Rat" 등으로 간소화하거나 음차 사용
-          // 여기서는 간단하게 "Year of the [Animal]"로 표현
-          ganjiChar = year; 
-          animalChar = branchData.animal;
-      }
-  
-      // 2. 별자리 계산
-      const constellation = getConstellation(fortuneData.constellations, month, day);
-  
-      // UI 업데이트
-      const txt = UI_TEXT[currentLang];
 
-      // 결과 텍스트 조합
-      if (currentLang === 'ko') {
-          document.getElementById("result-name").textContent = `${username} 님`;
-          document.getElementById("result-ganji").textContent = `${ganjiChar}년 (${animalChar}띠)`;
-      } else {
-          document.getElementById("result-name").textContent = `Dear ${username}`;
-          document.getElementById("result-ganji").textContent = `Year of the ${animalChar}`; // (${year})
-      }
-      
-      // 사주 설명 조합
-      const sajuDesc = `
-          <strong class="text-[#8b5a2b] font-bold">"${stemData.keyword}"</strong><br>
-          ${currentLang === 'ko' ? '하늘의 기운' : 'Heavenly Energy'}: <span class="font-bold text-gray-800">${stemData.element}</span><br>
-          <span class="text-xs text-gray-500 block mt-1">${branchData.trait}</span>
-          <span class="text-gray-500 text-xs mt-2 block italic">(${stemData.desc})</span>
-      `;
-      document.getElementById("result-saju-desc").innerHTML = sajuDesc;
-  
-      // 별자리 설명 조합
-      document.getElementById("result-constellation").textContent = constellation.name;
-      document.getElementById("result-star-desc").innerHTML = `
-          ${constellation.desc}
-      `;
-  
-      // 화면 전환
+      // 데이터 저장
+      storedUserData = { username, birthdate };
+
+      // 로딩 화면 표시
       inputSection.classList.add("hidden");
       const loadingSection = document.getElementById("loading-section");
       loadingSection.classList.remove("hidden");
+      loadingSection.classList.add("flex");
       
       window.scrollTo(0, 0);
   
+      // 3초 후 결과 표시
       setTimeout(() => {
           loadingSection.classList.add("hidden");
           resultSection.classList.remove("hidden");
+          
+          updateResultUI(username, birthdate, currentLang);
+          
           window.scrollTo(0, 0);
       }, 3000); 
     });
-  
+
     btnReset.addEventListener("click", () => {
       resultSection.classList.add("hidden");
       inputSection.classList.remove("hidden");
@@ -250,10 +200,21 @@ function updateLanguage(lang) {
 
     const starLabel = document.querySelector("#result-section div.flex-col > div:nth-child(2) span.absolute");
     if(starLabel) starLabel.textContent = t.labelStar;
+
+    // Celebrity Labels
+    const labelCeleb = document.getElementById("label-celeb");
+    if(labelCeleb) labelCeleb.textContent = t.labelCeleb;
+    const descCeleb = document.getElementById("desc-celeb");
+    if(descCeleb) descCeleb.textContent = t.descCeleb;
     
     // Quote & Reset
     document.querySelector("#result-section .text-center.mt-6 p").innerHTML = t.quote;
     document.getElementById("btn-reset").textContent = t.btnReset;
+
+    // 만약 이미 결과가 나와있다면 내용도 언어에 맞게 업데이트
+    if (storedUserData) {
+        updateResultUI(storedUserData.username, storedUserData.birthdate, lang);
+    }
 }
 
 function getConstellation(constellations, month, day) {
@@ -264,4 +225,96 @@ function getConstellation(constellations, month, day) {
         if (index < 0) index = 11; 
     }
     return constellations[index];
+}
+
+// 결과 업데이트 함수 (언어 변경 시에도 호출됨)
+function updateResultUI(username, birthdate, lang) {
+    const fortuneData = lang === "ko" ? window.FORTUNE_DATA : window.FORTUNE_DATA_EN;
+    if (!fortuneData) return;
+
+    const dateObj = new Date(birthdate);
+    const year = dateObj.getFullYear();
+    const month = dateObj.getMonth() + 1;
+    const day = dateObj.getDate();
+
+    // 1. 띠 & 간지 계산
+    const stems = ["경", "신", "임", "계", "갑", "을", "병", "정", "무", "기"];
+    const branches = ["신", "유", "술", "해", "자", "축", "인", "묘", "진", "사", "오", "미"];
+    
+    const stemKey = stems[year % 10];
+    const branchKey = branches[year % 12];
+    
+    // 영어 데이터에서도 keys는 한글("갑", "자" 등)을 그대로 사용 중임 (data_en.js 참조)
+    const stemData = fortuneData.heavenlyStems[stemKey];
+    const branchData = fortuneData.earthlyBranches[branchKey];
+
+    // 간지 문자열
+    let ganjiChar, animalChar;
+    if (lang === 'ko') {
+        ganjiChar = `${stemKey}${branchKey}`;
+        animalChar = branchData.animal;
+    } else {
+        ganjiChar = year; 
+        animalChar = branchData.animal;
+    }
+
+    // 2. 별자리 계산
+    const constellation = getConstellation(fortuneData.constellations, month, day);
+
+    // UI 텍스트 반영
+    if (lang === 'ko') {
+        document.getElementById("result-name").textContent = `${username} 님`;
+        document.getElementById("result-ganji").textContent = `${ganjiChar}년 (${animalChar}띠)`;
+    } else {
+        document.getElementById("result-name").textContent = `Dear ${username}`;
+        document.getElementById("result-ganji").textContent = `Year of the ${animalChar}`;
+    }
+
+    const sajuDesc = `
+        <strong class="text-[#8b5a2b] font-bold">"${stemData.keyword}"</strong><br>
+        ${lang === 'ko' ? '하늘의 기운' : 'Heavenly Energy'}: <span class="font-bold text-gray-800">${stemData.element}</span><br>
+        <span class="text-xs text-gray-500 block mt-1">${branchData.trait}</span>
+        <span class="text-gray-500 text-xs mt-2 block italic">(${stemData.desc})</span>
+    `;
+    document.getElementById("result-saju-desc").innerHTML = sajuDesc;
+
+    document.getElementById("result-constellation").textContent = constellation.name;
+    document.getElementById("result-star-desc").innerHTML = constellation.desc;
+
+    // 연예인 다시 그리기 (언어 변경 시 리스트가 바뀔 수 있음 - 랜덤이므로)
+    renderCelebrities(branchKey, lang);
+}
+
+// Celebrity Rendering
+function renderCelebrities(branchChar, lang) {
+    const listContainer = document.getElementById("celebrity-list");
+    if (!listContainer) return;
+    listContainer.innerHTML = ""; // reset
+
+    const dataset = lang === "ko" ? window.CELEBRITY_DATA : window.CELEBRITY_DATA_EN;
+    // branchChar는 "자", "축" 등 한글 키입니다.
+    // data_en.js에서도 키는 "자", "축" 등 한글 그대로 유지했으므로 그대로 사용 가능합니다.
+    
+    if (!dataset || !dataset[branchChar]) {
+        console.warn("No celebrity data found for:", branchChar);
+        return;
+    }
+
+    // Shuffle and pick 4
+    const celebs = [...dataset[branchChar]].sort(() => 0.5 - Math.random()).slice(0, 4);
+
+    celebs.forEach(celeb => {
+        const item = document.createElement("div");
+        item.className = "bg-[#fffcf5] border border-[#b08d5b]/30 p-3 rounded cursor-pointer hover:bg-[#8b5a2b] hover:text-[#f0e6d2] transition-colors group text-center flex flex-col justify-center items-center h-20 shadow-sm";
+        item.innerHTML = `
+            <div class="font-bold text-sm group-hover:text-white leading-tight break-keep w-full whitespace-normal">${celeb.name}</div>
+            <div class="text-[10px] text-gray-500 group-hover:text-[#f0e6d2]/80 mt-1 truncate w-full">${celeb.desc}</div>
+        `;
+        item.onclick = () => {
+            // Search query: Name + "face" or "photo" to ensure images
+            const query = encodeURIComponent(celeb.name);
+            window.open(`https://www.google.com/search?q=${query}&tbm=isch`, "_blank");
+        };
+        listContainer.appendChild(item);
+    });
 }

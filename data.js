@@ -176,3 +176,147 @@ window.FORTUNE_DATA = {
     }
   ]
 };
+
+// 유명인 데이터 (12띠 기준)
+const CELEBRITY_DATA = {
+    // 쥐띠 (자)
+    "자": [
+        { name: "유재석", desc: "국민 MC" },
+        { name: "이정재", desc: "오징어 게임" },
+        { name: "서태지", desc: "문화 대통령" },
+        { name: "장동건", desc: "톱배우" },
+        { name: "배용준", desc: "한류 원조" },
+        { name: "제니 (BLACKPINK)", desc: "Global Icon" },
+        { name: "조이 (Red Velvet)", desc: "상큼 보컬" },
+        { name: "강다니엘", desc: "국민 센터" },
+        { name: "화사 (MAMAMOO)", desc: "퍼포먼스 퀸" },
+        { name: "로운", desc: "연기돌" },
+        { name: "도영 (NCT)", desc: "NCT" }
+    ],
+    // 소띠 (축)
+    "축": [
+        { name: "송중기", desc: "빈센조" },
+        { name: "정우성", desc: "비트/헌트" },
+        { name: "전도연", desc: "칸의 여왕" },
+        { name: "리사 (BLACKPINK)", desc: "Global Star" },
+        { name: "로제 (BLACKPINK)", desc: "Global Voice" },
+        { name: "정국 (BTS)", desc: "Golden Maknae" },
+        { name: "지효 (TWICE)", desc: "리더" },
+        { name: "차은우", desc: "얼굴 천재" },
+        { name: "재현 (NCT)", desc: "발렌타인 보이" }
+    ],
+    // 호랑이띠 (인)
+    "인": [
+        { name: "김선호", desc: "스타트업/갯마을" },
+        { name: "유아인", desc: "베테랑" },
+        { name: "보아", desc: "아시아의 별" },
+        { name: "문채원", desc: "여신 미모" },
+        { name: "박민영", desc: "로코 퀸" },
+        { name: "최다니엘", desc: "지적인 매력" },
+        { name: "다현 (TWICE)", desc: "예능 치트키" },
+        { name: "승관 (SEVENTEEN)", desc: "예능 꿈나무" }
+    ],
+    // 검색 편의를 위해 자축인묘진사오미신유술해 순서 유지
+    // 토끼띠 (묘)
+    "묘": [
+        { name: "이민호", desc: "한류 킹" },
+        { name: "장근석", desc: "아시아 프린스" },
+        { name: "지창욱", desc: "액션/로코 장인" },
+        { name: "이승기", desc: "만능 엔터테이너" },
+        { name: "한효주", desc: "뷰티 인사이드" },
+        { name: "박재범", desc: "AOMG" },
+        { name: "가인", desc: "브아걸" },
+        { name: "마크 (NCT)", desc: "프로 아이돌" }
+    ],
+    // 용띠 (진)
+    "진": [
+        { name: "G-DRAGON", desc: "K-POP의 아이콘" },
+        { name: "박서준", desc: "이태원 클라쓰" },
+        { name: "김수현", desc: "별에서 온 그대" },
+        { name: "정해인", desc: "국민 연하남" },
+        { name: "태양 (BIGBANG)", desc: "R&B 소울" },
+        { name: "규현 (Super Junior)", desc: "발라더" },
+        { name: "제시", desc: "눈누난나" },
+        { name: "김종국", desc: "터보/런닝맨" }
+    ],
+    // 뱀띠 (사)
+    "사": [
+        { name: "태연 (SNSD)", desc: "믿듣탱" },
+        { name: "싸이", desc: "강남스타일" },
+        { name: "원빈", desc: "아저씨" },
+        { name: "김희선", desc: "미녀의 대명사" },
+        { name: "지성", desc: "연기 대상" },
+        { name: "윤아 (SNSD)", desc: "센터 융" },
+        { name: "에일리", desc: "파워 보컬" },
+        { name: "자이언티", desc: "양화대교" }
+    ],
+    // 말띠 (오)
+    "오": [
+        { name: "임영웅", desc: "히어로" },
+        { name: "박신혜", desc: "한류 여신" },
+        { name: "고아라", desc: "반올림/응사" },
+        { name: "강하늘", desc: "동백꽃" },
+        { name: "이성경", desc: "모델테이너" },
+        { name: "시우민 (EXO)", desc: "맏형" },
+        { name: "하정우", desc: "천만 배우" },
+        { name: "황정민", desc: "국제시장" }
+    ],
+    // 양띠 (미)
+    "미": [
+        { name: "서현 (SNSD)", desc: "바른생활 막내" },
+        { name: "아이린 (Red Velvet)", desc: "엔딩 요정" },
+        { name: "수호 (EXO)", desc: "리더" },
+        { name: "박형식", desc: "제국의아이들" },
+        { name: "나나", desc: "세계 미모 1위" },
+        { name: "솔라 (MAMAMOO)", desc: "믿듣맘무" },
+        { name: "키 (SHINee)", desc: "만능 열쇠" },
+        { name: "공유", desc: "도깨비" }
+    ],
+    // 원숭이띠 (신)
+    "신": [
+        { name: "백현 (EXO)", desc: "천재 아이돌" },
+        { name: "첸 (EXO)", desc: "고음 종결자" },
+        { name: "찬열 (EXO)", desc: "해피 바이러스" },
+        { name: "지코", desc: "아무노래" },
+        { name: "현아", desc: "패왕색" },
+        { name: "선미", desc: "가시나" },
+        { name: "손흥민", desc: "월드클래스" },
+        { name: "조정석", desc: "슬의생" }
+    ],
+    // 닭띠 (유)
+    "유": [
+        { name: "아이유 (IU)", desc: "국힙 원탑" },
+        { name: "슈가 (BTS)", desc: "Agust D" },
+        { name: "박보검", desc: "국민 세자" },
+        { name: "서강준", desc: "멜로 눈빛" },
+        { name: "디오 (EXO)", desc: "연기돌" },
+        { name: "태민 (SHINee)", desc: "역솔남" },
+        { name: "송민호 (WINNER)", desc: "마이노" },
+        { name: "전지현", desc: "별그대" },
+        { name: "송혜교", desc: "더 글로리" }
+    ],
+    // 개띠 (술)
+    "술": [
+        { name: "RM (BTS)", desc: "리더" },
+        { name: "제이홉 (BTS)", desc: "안무 팀장" },
+        { name: "수지", desc: "국민 첫사랑" },
+        { name: "남주혁", desc: "스물다섯 스물하나" },
+        { name: "한소희", desc: "마이네임" },
+        { name: "송강", desc: "넷플릭스의 아들" },
+        { name: "카이 (EXO)", desc: "월드 클래스 댄서" },
+        { name: "슬기 (Red Velvet)", desc: "곰슬기" },
+        { name: "현빈", desc: "사랑의 불시착" }
+    ],
+    // 돼지띠 (해)
+    "해": [
+        { name: "뷔 (BTS)", desc: "CGV" },
+        { name: "지민 (BTS)", desc: "입덕 요정" },
+        { name: "나연 (TWICE)", desc: "과즙상" },
+        { name: "화사 (MAMAMOO95)", desc: "멍청이" },
+        { name: "설현", desc: "입간판 여신" },
+        { name: "육성재", desc: "도깨비" },
+        { name: "지수 (BLACKPINK)", desc: "꽃" },
+        { name: "신동엽", desc: "동엽신" }
+    ]
+};
+window.CELEBRITY_DATA = CELEBRITY_DATA;

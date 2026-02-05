@@ -176,3 +176,144 @@ window.FORTUNE_DATA_EN = {
     }
   ]
 };
+
+// Celebrity Data (by Chinese Zodiac)
+const CELEBRITY_DATA_EN = {
+    // Rat (자)
+    "자": [
+        { name: "Yoo Jae-suk", desc: "National MC" },
+        { name: "Lee Jung-jae", desc: "Squid Game" },
+        { name: "Seo Taiji", desc: "Cultural President" },
+        { name: "Jang Dong-gun", desc: "Top Actor" },
+        { name: "Jennie (BLACKPINK)", desc: "Global Icon" },
+        { name: "Joy (Red Velvet)", desc: "Vocalist" },
+        { name: "Kang Daniel", desc: "Center" },
+        { name: "Hwasa (MAMAMOO)", desc: "Performance Queen" },
+        { name: "Rowoon", desc: "Actor-Idol" },
+        { name: "Doyoung (NCT)", desc: "NCT" }
+    ],
+    // Ox (축)
+    "축": [
+        { name: "Song Joong-ki", desc: "Vincenzo" },
+        { name: "Jung Woo-sung", desc: "The Good, the Bad, the Weird" },
+        { name: "Jeon Do-yeon", desc: "Cannes Queen" },
+        { name: "Lisa (BLACKPINK)", desc: "Global Star" },
+        { name: "Rosé (BLACKPINK)", desc: "Global Voice" },
+        { name: "Jungkook (BTS)", desc: "Golden Maknae" },
+        { name: "Jihyo (TWICE)", desc: "Leader" },
+        { name: "Cha Eun-woo", desc: "Face Genius" },
+        { name: "Jaehyun (NCT)", desc: "Valentine Boy" }
+    ],
+    // Tiger (인)
+    "인": [
+        { name: "Kim Seon-ho", desc: "Hometown Cha-Cha-Cha" },
+        { name: "Yoo Ah-in", desc: "Veteran" },
+        { name: "BoA", desc: "Star of Asia" },
+        { name: "Moon Chae-won", desc: "Actress" },
+        { name: "Park Min-young", desc: "Rom-Com Queen" },
+        { name: "Dahyun (TWICE)", desc: "Variety Star" },
+        { name: "Seungkwan (SEVENTEEN)", desc: "Variety Rookie" }
+    ],
+    // Rabbit (묘)
+    "묘": [
+        { name: "Lee Min-ho", desc: "Hallyu King" },
+        { name: "Jang Keun-suk", desc: "Asia Prince" },
+        { name: "Ji Chang-wook", desc: "Action/Romance" },
+        { name: "Lee Seung-gi", desc: "Entertainer" },
+        { name: "Han Hyo-joo", desc: "Beauty Inside" },
+        { name: "Jay Park", desc: "AOMG" },
+        { name: "Gain", desc: "Brown Eyed Girls" },
+        { name: "Mark (NCT)", desc: "Pro Idol" }
+    ],
+    // Dragon (진)
+    "진": [
+        { name: "G-DRAGON", desc: "K-POP Icon" },
+        { name: "Park Seo-joon", desc: "Itaewon Class" },
+        { name: "Kim Soo-hyun", desc: "My Love from the Star" },
+        { name: "Jung Hae-in", desc: "Actor" },
+        { name: "Taeyang (BIGBANG)", desc: "R&B Soul" },
+        { name: "Kyuhyun (Super Junior)", desc: "Balladeer" },
+        { name: "Jessi", desc: "NUNU NANA" },
+        { name: "Kim Jong-kook", desc: "Turbo/Running Man" }
+    ],
+    // Snake (사)
+    "사": [
+        { name: "Taeyeon (SNSD)", desc: "Vocal Queen" },
+        { name: "PSY", desc: "Gangnam Style" },
+        { name: "Won Bin", desc: "The Man from Nowhere" },
+        { name: "Kim Hee-sun", desc: "Beauty Icon" },
+        { name: "Ji Sung", desc: "Grand Prize Actor" },
+        { name: "Yoona (SNSD)", desc: "Center Yoona" },
+        { name: "Ailee", desc: "Power Vocal" },
+        { name: "Zion.T", desc: "Yanghwa Bridge" }
+    ],
+    // Horse (오)
+    "오": [
+        { name: "Lim Young-woong", desc: "Trot Hero" },
+        { name: "Park Shin-hye", desc: "Hallyu Goddess" },
+        { name: "Go Ara", desc: "Reply 1994" },
+        { name: "Kang Ha-neul", desc: "When the Camellia Blooms" },
+        { name: "Lee Sung-kyung", desc: "Model-tainer" },
+        { name: "Xiumin (EXO)", desc: "Eldest Brother" },
+        { name: "Ha Jung-woo", desc: "10 Million Actor" },
+        { name: "Hwang Jung-min", desc: "Ode to My Father" }
+    ],
+    // Sheep (미)
+    "미": [
+        { name: "Seohyun (SNSD)", desc: "Maknae" },
+        { name: "Irene (Red Velvet)", desc: "Ending Fairy" },
+        { name: "Suho (EXO)", desc: "Leader" },
+        { name: "Park Hyung-sik", desc: "ZE:A" },
+        { name: "Nana", desc: "World's Most Beautiful" },
+        { name: "Solar (MAMAMOO)", desc: "Vocalist" },
+        { name: "Key (SHINee)", desc: "All-rounder" },
+        { name: "Gong Yoo", desc: "Goblin" }
+    ],
+    // Monkey (신)
+    "신": [
+        { name: "Baekhyun (EXO)", desc: "Genius Idol" },
+        { name: "Chen (EXO)", desc: "High Note Master" },
+        { name: "Chanyeol (EXO)", desc: "Happy Virus" },
+        { name: "Zico", desc: "Any Song" },
+        { name: "HyunA", desc: "Performance Queen" },
+        { name: "Sunmi", desc: "Gashina" },
+        { name: "Son Heung-min", desc: "World Class" },
+        { name: "Jo Jung-suk", desc: "Hospital Playlist" }
+    ],
+    // Rooster (유)
+    "유": [
+        { name: "IU", desc: "National Treasure" },
+        { name: "Suga (BTS)", desc: "Agust D" },
+        { name: "Park Bo-gum", desc: "National Crown Prince" },
+        { name: "Seo Kang-joon", desc: "Melodramatic Eyes" },
+        { name: "D.O. (EXO)", desc: "Actor-Idol" },
+        { name: "Taemin (SHINee)", desc: "Solo Artist" },
+        { name: "Mino (WINNER)", desc: "Rapper" },
+        { name: "Jun Ji-hyun", desc: "My Love from the Star" },
+        { name: "Song Hye-kyo", desc: "The Glory" }
+    ],
+    // Dog (술)
+    "술": [
+        { name: "RM (BTS)", desc: "Leader" },
+        { name: "J-Hope (BTS)", desc: "Dance Leader" },
+        { name: "Suzy", desc: "National First Love" },
+        { name: "Nam Joo-hyuk", desc: "Twenty-Five Twenty-One" },
+        { name: "Han So-hee", desc: "My Name" },
+        { name: "Song Kang", desc: "Son of Netflix" },
+        { name: "Kai (EXO)", desc: "World Class Dancer" },
+        { name: "Seulgi (Red Velvet)", desc: "Dancer" },
+        { name: "Hyun Bin", desc: "Crash Landing on You" }
+    ],
+    // Pig (해)
+    "해": [
+        { name: "V (BTS)", desc: "CGV" },
+        { name: "Jimin (BTS)", desc: "Fairy" },
+        { name: "Nayeon (TWICE)", desc: "Fruity Visual" },
+        { name: "Hwasa (MAMAMOO)", desc: "Twit (Born 95)" },
+        { name: "Seolhyun", desc: "Goddess" },
+        { name: "Yook Sung-jae", desc: "Goblin" },
+        { name: "Jisoo (BLACKPINK)", desc: "Flower" },
+        { name: "Shin Dong-yup", desc: "Comedian" }
+    ]
+};
+window.CELEBRITY_DATA_EN = CELEBRITY_DATA_EN;
