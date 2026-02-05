@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>운명의 나침반 - 사주 & 별자리</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    
+    <header>
+        <h1>운명의 나침반</h1>
+        <p>당신의 하늘이 들려주는 이야기</p>
+    </header>
+
+    <main class="container">
+        <!-- 입력 섹션 -->
+        <section id="input-section" class="card fade-in">
+            <h2>정보를 입력해주세요</h2>
+            <form id="destiny-form">
+                <div class="form-group">
+                    <label for="username">이름</label>
+                    <input type="text" id="username" placeholder="당신의 이름" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="birthdate">생년월일 (양력)</label>
+                    <input type="date" id="birthdate" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="birthtime">태어난 시간</label>
+                    <input type="time" id="birthtime">
+                    <small>* 모르면 비워두셔도 됩니다.</small>
+                </div>
+
+                <div class="form-group">
+                    <label>성별</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="gender" value="male" checked> 남성
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="gender" value="female"> 여성
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">운세 보기</button>
+            </form>
+        </section>
+
+        <!-- 결과 섹션 (처음에는 숨김) -->
+        <section id="result-section" class="card hidden">
+            <div class="result-header">
+                <h2 id="result-name">OOO님의 운명 정보</h2>
+                <button id="btn-reset" class="btn-text">다시 입력하기</button>
+            </div>
+            
+            <div class="result-grid">
+                <!-- 띠 결과 -->
+                <div class="result-item">
+                    <div class="icon">🐯</div>
+                    <h3>띠 (12지신)</h3>
+                    <p id="result-zodiac-kr" class="highlight">정보 계산 중...</p>
+                    <p class="desc">당신을 수호하는 동물입니다.</p>
+                </div>
+
+                <!-- 별자리 결과 -->
+                <div class="result-item">
+                    <div class="icon">⭐</div>
+                    <h3>별자리</h3>
+                    <p id="result-constellation" class="highlight">정보 계산 중...</p>
+                    <p class="desc">태어난 날 밤하늘의 주인입니다.</p>
+                </div>
+
+                <!-- 천간지지 결과 -->
+                <div class="result-item full-width">
+                    <div class="icon">📜</div>
+                    <h3>태어난 해 (세차)</h3>
+                    <p id="result-ganji" class="highlight-large">정보 계산 중...</p>
+                    <p id="result-desc" class="desc-long">
+                        결과 설명이 이곳에 표시됩니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 K-Destiny. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
