@@ -27,13 +27,13 @@
         }
     </script>
 </head>
-<body class="bg-night text-white font-serif min-h-screen flex items-center justify-center relative overflow-hidden selection:bg-gold selection:text-night">
+<body class="bg-night text-white font-serif min-h-screen flex items-center justify-center relative overflow-x-hidden overflow-y-auto selection:bg-gold selection:text-night">
 
     <!-- 배경 효과 (별) -->
-    <div class="stars absolute inset-0 pointer-events-none"></div>
-    <div class="background-glow absolute inset-0 pointer-events-none highlight-gradient"></div>
+    <div class="stars absolute inset-0 pointer-events-none fixed"></div>
+    <div class="background-glow absolute inset-0 pointer-events-none highlight-gradient fixed"></div>
 
-    <main class="relative z-10 w-full max-w-md px-6 py-10">
+    <main class="relative z-10 w-full max-w-md px-6 py-10 my-auto">
         <!-- 헤더 -->
         <header class="text-center mb-8 animate-fade-in-down">
             <h1 class="text-4xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-amber-100 to-amber-400 tracking-widest font-serif">운명록<span class="text-xl ml-2 font-light text-amber-500/80">(運命錄)</span></h1>
@@ -164,7 +164,14 @@
         </section>
     </main>
 
+
+    <!-- 언어 변경 버튼 -->
+    <button id="lang-toggle" class="absolute top-4 right-4 z-50 bg-white/10 backdrop-blur-md border border-white/20 text-white/80 px-3 py-1 rounded-full text-xs hover:bg-white/20 transition-all font-sans uppercase tracking-widest">
+        KR / <span class="text-amber-400 font-bold">EN</span>
+    </button>
+
     <script src="data.js"></script>
+    <script src="data_en.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
