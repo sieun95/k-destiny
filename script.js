@@ -69,22 +69,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const loadingSection = document.getElementById("loading-section");
     loadingSection.classList.remove("hidden");
     
-    // 로딩바이크 스크롤 이동 (모바일 배려)
-    loadingSection.scrollIntoView({ behavior: 'smooth' });
+    // 로딩바이크 스크롤 이동 (상단으로 즉시 이동)
+    window.scrollTo(0, 0);
 
     setTimeout(() => {
         loadingSection.classList.add("hidden");
         resultSection.classList.remove("hidden");
-        // 결과창으로 스크롤 이동
-        resultSection.scrollIntoView({ behavior: 'smooth' });
+        // 결과창으로 스크롤 이동 (상단으로 즉시 이동)
+        window.scrollTo(0, 0);
     }, 3000); // 3초 대기 (광고 노출 시간 확보)
   });
 
   btnReset.addEventListener("click", () => {
     resultSection.classList.add("hidden");
     inputSection.classList.remove("hidden");
-    // 입력창으로 스크롤 이동
-    inputSection.scrollIntoView({ behavior: 'smooth' });
+    // 입력창으로 스크롤 이동 (상단으로 즉시 이동)
+    window.scrollTo(0, 0);
     form.reset();
   });
 });
