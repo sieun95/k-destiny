@@ -159,7 +159,8 @@ function updateLanguage(lang) {
     const usernameInput = document.getElementById("username");
     if(usernameInput) usernameInput.placeholder = t.placeholderName;
     
-    const labels = document.querySelectorAll("#input-section label.block"); 
+    // Select labels by common class "text-amber-200" to capture Name, Date, Time (labels) and Gender (span)
+    const labels = document.querySelectorAll("#input-section .block.text-amber-200"); 
     if(labels.length >= 4) {
         labels[0].textContent = t.labelName;
         labels[1].textContent = t.labelDate;
@@ -197,9 +198,6 @@ function updateLanguage(lang) {
     document.querySelector("#result-section .text-center > p.text-sm").textContent = t.labelOun;
     
     // Lucky Labels
-    const luckyLabels = document.querySelectorAll(".border-black\\/10").parentElement?.querySelectorAll("p.text-\\[10px\\]"); 
-    // Easier selection via text content update if structure is complex, but let's query carefully
-    // Using simple query based on index in lucky container
     const luckyContainer = document.querySelector("#result-section .bg-\\[\\#fffcf5\\]\\/50");
     if (luckyContainer) {
         const pTags = luckyContainer.querySelectorAll("p:first-child"); // select first p in each flex col
@@ -209,13 +207,8 @@ function updateLanguage(lang) {
         }
     }
 
-    // Saju/Star Labels
-    const sajuLabel = document.querySelector("#result-section div.flex-col > div:nth-child(2) span.absolute"); // index shifted due to lucky section
-    if(sajuLabel) sajuLabel.textContent = t.labelSaju;
-
-    const starLabel = document.querySelector("#result-section div.flex-col > div:nth-child(4) span.absolute"); // 1(lucky) + 2(saju) + 3(ad) + 4(star) ? No, depends on structure
-    // Let's re-select by class since unique
-    const sectionLabels = document.querySelectorAll(".bg-\\[\\#f0e6d2\\]");
+    // Saju/Star Labels - TARGET SPANS ONLY to avoid wiping the container
+    const sectionLabels = document.querySelectorAll("span.bg-\\[\\#f0e6d2\\]");
     if (sectionLabels.length >= 2) {
         sectionLabels[0].textContent = t.labelSaju;
         sectionLabels[1].textContent = t.labelStar;
