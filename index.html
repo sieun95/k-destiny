@@ -23,6 +23,7 @@
     <meta name="twitter:title" content="Book of Destiny (운명록)">
     <meta name="twitter:description" content="Discover your Korean Zodiac destiny and find your celebrity soulmate.">
     <meta name="twitter:image" content="https://k-destiny.pages.dev/assets/og-image.png">
+    <meta name="google-adsense-account" content="ca-pub-2335323730606517">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2335323730606517" crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;500;700&family=Outfit:wght@300;500&display=swap" rel="stylesheet">
@@ -67,6 +68,13 @@
 
     <!-- 배경 효과 (별) -->
     <div class="stars absolute inset-0 pointer-events-none fixed"></div>
+    <!-- Fog & Noise -->
+    <div class="fog-container fixed inset-0 pointer-events-none">
+        <div class="fog-layer"></div>
+        <div class="fog-layer delay"></div>
+    </div>
+    <div class="noise-overlay fixed inset-0 pointer-events-none"></div>
+
     <div class="background-glow absolute inset-0 pointer-events-none highlight-gradient fixed"></div>
 
     <main class="relative z-10 w-full max-w-md px-6">
@@ -77,21 +85,21 @@
         </header>
 
         <!-- 입력 섹션 -->
-        <section id="input-section" class="glass-panel p-8 rounded-xl shadow-2xl animate-fade-in-up border border-white/10">
+        <section id="input-section" class="glass-panel p-8 rounded-xl shadow-2xl animate-fade-in-up border border-white/10 input-glow">
             <form id="destiny-form" class="space-y-6">
-                <div>
+                <div class="input-glow rounded transition-all">
                     <label for="username" class="block text-xs text-amber-200 mb-1 tracking-wider uppercase">Name</label>
                     <input type="text" id="username" class="w-full bg-transparent border-b border-white/20 py-2 text-lg focus:outline-none focus:border-amber-400 transition-colors placeholder-white/30 text-center" placeholder="이름을 입력하세요" required>
                 </div>
                 
-                <div>
+                <div class="input-glow rounded transition-all">
                     <label for="birthdate" class="block text-xs text-amber-200 mb-1 tracking-wider uppercase">Birth Date (Solar)</label>
                     <input type="date" id="birthdate" class="w-full bg-transparent border-b border-white/20 py-2 text-lg focus:outline-none focus:border-amber-400 transition-colors text-center" required>
                 </div>
 
                 <div>
                     <label class="block text-xs text-amber-200 mb-2 tracking-wider uppercase">Birth Time</label>
-                    <div class="flex gap-2">
+                    <div class="flex gap-2 justify-center">
                         <select id="time-ampm" class="bg-white/5 border border-white/20 rounded px-2 py-2 text-sm focus:outline-none focus:border-amber-400 text-center w-24">
                             <option value="am" class="text-black">오전</option>
                             <option value="pm" class="text-black">오후</option>
@@ -105,7 +113,7 @@
 
                 <div>
                     <span class="block text-xs text-amber-200 mb-3 tracking-wider uppercase">Gender</span>
-                    <div class="flex gap-4">
+                    <div class="flex gap-4 justify-center">
                         <label class="flex items-center gap-2 cursor-pointer group">
                             <div class="w-5 h-5 rounded-full border border-white/30 flex items-center justify-center group-hover:border-amber-400">
                                 <input type="radio" name="gender" value="male" class="appearance-none w-3 h-3 rounded-full bg-amber-400 opacity-0 checked:opacity-100 transition-opacity" checked>
@@ -128,7 +136,7 @@
         </section>
 
         <!-- 로딩 섹션 -->
-        <section id="loading-section" class="hidden text-center py-20">
+        <section id="loading-section" class="hidden text-center py-20 flex-col items-center justify-center h-full">
             <div class="mystic-spinner mb-6 mx-auto"></div>
             <h3 class="text-2xl font-light text-amber-100 mb-2 animate-pulse">천체의 흐름을 읽는 중...</h3>
             <p class="text-sm text-white/50">잠시만 기다려주세요</p>
@@ -161,6 +169,20 @@
                     <div class="text-center">
                         <p class="text-sm text-[#8b5a2b] mb-1">귀하의 명운(命運)</p>
                         <h3 id="result-name" class="text-2xl font-bold text-black border-b border-gray-400 inline-block px-4 pb-1">OOO 님</h3>
+                    </div>
+                    
+                    <!-- Lucky Section (NEW) -->
+                    <div class="mt-2 p-3 border border-[#b08d5b]/30 bg-[#fffcf5]/50 flex justify-around text-center items-center rounded-sm">
+                        <div class="flex flex-col items-center">
+                            <p class="text-[10px] text-[#8b5a2b] font-bold mb-1 tracking-wider">LUCKY COLOR</p>
+                            <div id="lucky-color" class="w-6 h-6 rounded-full shadow-sm border border-black/10 mb-1"></div>
+                            <p id="lucky-color-name" class="text-xs text-[#5c3a1e] font-serif font-bold"></p>
+                        </div>
+                        <div class="w-px h-8 bg-[#b08d5b]/30"></div>
+                        <div class="flex flex-col items-center">
+                            <p class="text-[10px] text-[#8b5a2b] font-bold mb-1 tracking-wider">LUCKY NUMBER</p>
+                            <p id="lucky-number" class="text-xl font-bold text-[#5c3a1e] font-serif leading-none mt-1"></p>
+                        </div>
                     </div>
 
                     <!-- 사주 정보 카드 -->
@@ -216,6 +238,12 @@
                         </p>
                         <button id="btn-reset" class="bg-[#5c3a1e] text-[#f0e6d2] px-6 py-2 rounded text-sm hover:bg-[#3e2714] transition-colors border border-[#3e2714]">
                             다시 기록하기
+                        </button>
+                        
+                        <!-- Share Button -->
+                        <button id="btn-share" class="mt-4 text-[#8b5a2b] text-xs font-bold uppercase tracking-wider hover:text-[#5c3a1e] flex items-center justify-center gap-2 mx-auto transition-colors p-2 rounded hover:bg-[#8b5a2b]/10">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/></svg>
+                            <span id="label-share">Share Result</span>
                         </button>
                     </div>
                     

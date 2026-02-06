@@ -5,6 +5,68 @@
   background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
 }
 
+/* Background Stars & Atmosphere */
+.bg-night {
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  overflow: hidden; /* Ensure fog doesn't cause scroll */
+}
+
+/* Noise Overlay (Texture) */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Fog Animation */
+.fog-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.fog-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(150, 150, 180, 0.1) 25%,
+    rgba(200, 180, 220, 0.05) 50%,
+    rgba(150, 150, 180, 0.1) 75%,
+    transparent 100%
+  );
+  animation: fogFlow 60s linear infinite;
+}
+
+.fog-layer.delay {
+  animation-delay: -30s;
+  top: 20%;
+  opacity: 0.7;
+}
+
+@keyframes fogFlow {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Keep stars as subtle background */
 .stars {
   width: 2px;
   height: 2px;
@@ -20,7 +82,8 @@
     1500px 600px #fff,
     200px 1000px #fff,
     1800px 400px #fff;
-  animation: animStar 100s linear infinite;
+  animation: animStar 150s linear infinite;
+  opacity: 0.7;
 }
 
 .stars:after {
@@ -126,7 +189,8 @@ input[type="number"] {
 }
 
 /* Responsive Heights for CLS Optimization */
-.adsense-top, .adsense-bottom {
+.adsense-top,
+.adsense-bottom {
   width: 100%;
   min-height: 100px; /* Mobile Banner Height */
 }
@@ -137,9 +201,28 @@ input[type="number"] {
 }
 
 @media (min-width: 768px) {
-  .adsense-top, .adsense-bottom {
+  .adsense-top,
+  .adsense-bottom {
     min-height: 90px; /* Leaderboard */
   }
 }
 
+/* Enhanced Interactions */
+button:hover {
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+}
 
+.input-glow:focus-within {
+  box-shadow: 0 0 20px rgba(75, 0, 130, 0.3);
+  border-color: rgba(255, 215, 0, 0.5);
+}
+
+.glass-panel {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.glass-panel:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
