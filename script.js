@@ -28,7 +28,14 @@ const UI_TEXT = {
         labelCeleb: "운명의 단짝",
         descCeleb: "* 이름을 누르면 검색됩니다",
         quote: "\"운명은 정해진 것이 아니라, <br>스스로 개척해 나가는 것입니다.\"",
-        btnReset: "다시 기록하기"
+        btnReset: "다시 기록하기",
+        faqTitle: "자주 묻는 질문 (FAQ)",
+        faqQ1: "나의 사주와 어울리는 연예인은 누구인가요?",
+        faqA1: "운명록(K-Destiny)에서는 입력하신 생년월일을 동양 명리학 기반으로 분석하여, 귀하의 기운과 가장 잘 어울리는 연예인(아이돌, 배우)을 찾아드립니다. 결과 페이지에서 '운명의 단짝'을 확인해보세요.",
+        faqQ2: "무료로 띠별 운세를 보는 방법은?",
+        faqA2: "별도의 회원가입이나 결제 없이, 이름과 생년월일만 입력하면 즉시 무료로 띠별 운세와 사주 분석 결과를 확인하실 수 있습니다. 친구들에게 결과를 공유해보세요.",
+        faqQ3: "운명록은 어떤 원리인가요?",
+        faqA3: "동양의 전통적인 60갑자 사주 명리학과 서양의 점성술(별자리) 데이터를 현대적으로 재해석하여 결합했습니다. 이를 통해 단순한 재미를 넘어, 나를 더 깊이 이해할 수 있는 통찰을 제공합니다."
     },
     en: {
         // 영어 타이틀 길이 조절 및 반응형 텍스트 크기 적용
@@ -63,7 +70,15 @@ const UI_TEXT = {
         shareTitle: "[Book of Destiny]",
         shareText: "Check out my destiny report!",
         luckyColor: "LUCKY COLOR",
-        luckyNumber: "LUCKY NUMBER"
+        luckyColor: "LUCKY COLOR",
+        luckyNumber: "LUCKY NUMBER",
+        faqTitle: "Frequently Asked Questions (FAQ)",
+        faqQ1: "Which celebrity matches my destiny?",
+        faqA1: "Based on Eastern Saju astrology and your birth date, K-Destiny analyzes your energy to find the perfect celebrity (idol, actor) match. Check your 'Destiny Connection' in the result.",
+        faqQ2: "Is this zodiac reading free?",
+        faqA2: "Yes! Simply enter your name and birth date to get your free Zodiac and Saju analysis instantly. No sign-up or payment required. Share the results with your friends!",
+        faqQ3: "How does K-Destiny work?",
+        faqA3: "We combine traditional Eastern 60-Gapja Saju astrology with Western horoscope data, reinterpreted for the modern age. It provides insights into your destiny beyond simple entertainment."
     }
 };
 
@@ -229,6 +244,25 @@ function updateLanguage(lang) {
     document.getElementById("btn-reset").textContent = t.btnReset;
     const btnShareLabel = document.querySelector("#label-share");
     if(btnShareLabel) btnShareLabel.textContent = lang === 'ko' ? "운명 공유하기" : "Share Result";
+
+    // FAQ Translations
+    const faqTitle = document.getElementById("faq-title");
+    if(faqTitle) faqTitle.textContent = t.faqTitle;
+    
+    const faqQ1 = document.getElementById("faq-q1");
+    if(faqQ1) faqQ1.textContent = t.faqQ1;
+    const faqA1 = document.getElementById("faq-a1");
+    if(faqA1) faqA1.textContent = t.faqA1;
+
+    const faqQ2 = document.getElementById("faq-q2");
+    if(faqQ2) faqQ2.textContent = t.faqQ2;
+    const faqA2 = document.getElementById("faq-a2");
+    if(faqA2) faqA2.textContent = t.faqA2;
+
+    const faqQ3 = document.getElementById("faq-q3");
+    if(faqQ3) faqQ3.textContent = t.faqQ3;
+    const faqA3 = document.getElementById("faq-a3");
+    if(faqA3) faqA3.textContent = t.faqA3;
 
     // 만약 이미 결과가 나와있다면 내용도 언어에 맞게 업데이트
     if (storedUserData) {
