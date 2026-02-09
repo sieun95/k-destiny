@@ -74,6 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnReset = document.getElementById("btn-reset");
     const btnShare = document.getElementById("btn-share"); // NEW
     const langToggle = document.getElementById("lang-toggle");
+    const faqSection = document.getElementById("faq-section"); // NEW
     
     // 현재 언어 상태 (기본: ko)
     let currentLang = "ko"; 
@@ -118,6 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // 로딩 화면 표시
       inputSection.classList.add("hidden");
+      faqSection.classList.add("hidden"); // Ensure hidden on loading
       const loadingSection = document.getElementById("loading-section");
       loadingSection.classList.remove("hidden");
       loadingSection.classList.add("flex");
@@ -128,6 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => {
           loadingSection.classList.add("hidden");
           resultSection.classList.remove("hidden");
+          faqSection.classList.remove("hidden"); // Show FAQ
           
           updateResultUI(username, birthdate, currentLang);
           
@@ -137,6 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     btnReset.addEventListener("click", () => {
       resultSection.classList.add("hidden");
+      faqSection.classList.add("hidden"); // Hide FAQ
       inputSection.classList.remove("hidden");
       window.scrollTo(0, 0);
       form.reset();
