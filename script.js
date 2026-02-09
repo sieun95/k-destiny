@@ -1,6 +1,26 @@
 // 전역 사용자 데이터 저장소
 let storedUserData = null;
 
+// Custom Toast Function
+function showToast(message, icon = "✨") {
+    const container = document.getElementById("toast-container");
+    const msgEl = document.getElementById("toast-message");
+    const iconEl = document.getElementById("toast-icon");
+    
+    if (!container || !msgEl) return;
+    
+    msgEl.innerHTML = message.replace(/\n/g, "<br>"); // Allow line breaks
+    if(iconEl) iconEl.textContent = icon;
+    
+    // Show
+    container.classList.remove("opacity-0", "translate-y-[-20px]");
+    
+    // Hide after 3s
+    setTimeout(() => {
+        container.classList.add("opacity-0", "translate-y-[-20px]");
+    }, 3000);
+}
+
 // 다국어 UI 텍스트 상수
 const UI_TEXT = {
     ko: {
@@ -127,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const username = document.getElementById("username").value;
       const birthdate = document.getElementById("birthdate").value;
   
-      if (!birthdate) return alert(currentLang === 'ko' ? "생년월일을 입력해주세요." : "Please enter your birth date.");
+      if (!birthdate) return showToast(currentLang === 'ko' ? "생년월일을 입력해주세요." : "Please enter your birth date.", "📅");
 
       // 데이터 저장
       storedUserData = { username, birthdate };
@@ -447,12 +467,9 @@ async function handleSNSShare(platform, lang) {
         case 'instagram':
             // Instagram doesn't have a direct Web Share URL for feed/stories.
             // Fallback to Copy Link and alert logic.
-            // Fallthrough to 'link' case intent but with specific message?
-            // Actually, let's just use the link logic but customize the alert.
             try {
                 await navigator.clipboard.writeText(`${shareText}\n${cleanUrl}`);
-                alert(lang === 'ko' ? "링크가 복사되었습니다. 인스타그램에 공유해보세요!" : "Link copied! Ready to share on Instagram.");
-                // Optional: window.open('https://instagram.com', '_blank');
+                showToast(lang === 'ko' ? "링크가 복사되었습니다.<br>인스타그램에 공유해보세요!" : "Link copied!<br>Ready to share on Instagram.", "📸");
             } catch (err) {
                 console.error('Clipboard failed', err);
             }
@@ -460,10 +477,10 @@ async function handleSNSShare(platform, lang) {
         case 'link':
             try {
                 await navigator.clipboard.writeText(`${shareText}\n${cleanUrl}`);
-                alert(lang === 'ko' ? "링크가 복사되었습니다." : "Link copied to clipboard!");
+                showToast(lang === 'ko' ? "링크가 복사되었습니다." : "Link copied to clipboard!", "🔗");
             } catch (err) {
                 console.error('Clipboard failed', err);
-                alert(lang === 'ko' ? "복사에 실패했습니다." : "Failed to copy.");
+                showToast(lang === 'ko' ? "복사에 실패했습니다." : "Failed to copy.", "⚠️");
             }
             break;
     }
@@ -477,7 +494,7 @@ function shareKakao(title, description, link, animal) {
             Kakao.init('YOUR_KAKAO_JAVASCRIPT_KEY'); 
         } catch(e) {
             console.error("Kakao init failed. Please check your key.");
-            return alert("Kakao Share is not configured.");
+            return showToast("카카오톡 공유 설정 오류", "⚠️");
         }
     }
 
