@@ -166,11 +166,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnTwitter = document.getElementById("btn-twitter");
     const btnFacebook = document.getElementById("btn-facebook");
     const btnLink = document.getElementById("btn-link");
+    const btnLine = document.getElementById("btn-line");
+    const btnTelegram = document.getElementById("btn-telegram");
+    const btnInstagram = document.getElementById("btn-instagram");
+    const btnThreads = document.getElementById("btn-threads");
 
     if (btnKakao) btnKakao.addEventListener("click", () => handleSNSShare('kakao', currentLang));
     if (btnTwitter) btnTwitter.addEventListener("click", () => handleSNSShare('twitter', currentLang));
     if (btnFacebook) btnFacebook.addEventListener("click", () => handleSNSShare('facebook', currentLang));
     if (btnLink) btnLink.addEventListener("click", () => handleSNSShare('link', currentLang));
+    if (btnLine) btnLine.addEventListener("click", () => handleSNSShare('line', currentLang));
+    if (btnTelegram) btnTelegram.addEventListener("click", () => handleSNSShare('telegram', currentLang));
+    if (btnInstagram) btnInstagram.addEventListener("click", () => handleSNSShare('instagram', currentLang)); // Fallback to copy
+    if (btnThreads) btnThreads.addEventListener("click", () => handleSNSShare('threads', currentLang));
 });
   
 function updateLanguage(lang) {
@@ -423,6 +431,31 @@ async function handleSNSShare(platform, lang) {
         case 'facebook':
             const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(cleanUrl)}`;
             window.open(fbUrl, '_blank');
+            break;
+        case 'line':
+            const lineUrl = `https://line.me/R/msg/text/?${encodeURIComponent(shareText)}%20${encodeURIComponent(cleanUrl)}`;
+            window.open(lineUrl, '_blank');
+            break;
+        case 'telegram':
+            const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(cleanUrl)}&text=${encodeURIComponent(shareText)}`;
+            window.open(telegramUrl, '_blank');
+            break;
+        case 'threads':
+             const threadsUrl = `https://www.threads.net/intent/post?text=${encodeURIComponent(shareText)}%20${encodeURIComponent(cleanUrl)}`;
+             window.open(threadsUrl, '_blank');
+             break;
+        case 'instagram':
+            // Instagram doesn't have a direct Web Share URL for feed/stories.
+            // Fallback to Copy Link and alert logic.
+            // Fallthrough to 'link' case intent but with specific message?
+            // Actually, let's just use the link logic but customize the alert.
+            try {
+                await navigator.clipboard.writeText(`${shareText}\n${cleanUrl}`);
+                alert(lang === 'ko' ? "링크가 복사되었습니다. 인스타그램에 공유해보세요!" : "Link copied! Ready to share on Instagram.");
+                // Optional: window.open('https://instagram.com', '_blank');
+            } catch (err) {
+                console.error('Clipboard failed', err);
+            }
             break;
         case 'link':
             try {
