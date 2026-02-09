@@ -6,10 +6,7 @@
 }
 
 /* Background Stars & Atmosphere */
-.bg-night {
-  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-  overflow: hidden; /* Ensure fog doesn't cause scroll */
-}
+/* Background Stars & Atmosphere - Consolidated above */
 
 /* Noise Overlay (Texture) */
 .noise-overlay {
@@ -219,7 +216,9 @@ button:hover {
 }
 
 .glass-panel {
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  transition:
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .glass-panel:hover {
