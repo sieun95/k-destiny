@@ -1,269 +1,501 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-BNCPV24FHL"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-BNCPV24FHL");
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>운명록 (運命錄) | 당신의 하늘을 읽다</title>
-    <link rel="icon" href="assets/favicon.png" type="image/png">
-    <meta name="description" content="K-Destiny 운명록 - 당신의 사주(띠)와 별자리 운세를 확인하고, 나와 같은 기운을 가진 연예인(아이돌, 배우) 단짝을 찾아보세요.">
-    <meta name="keywords" content="사주, 운세, 띠별운세, 별자리, 궁합, 사주팔자, Destiny, K-Zodiac, Horowitz, K-pop Idol Match">
-    <meta name="author" content="K-Destiny">
-    <link rel="canonical" href="https://k-destiny.pages.dev/">
+    <link rel="icon" href="assets/favicon.png" type="image/png" />
+    <meta
+      name="description"
+      content="K-Destiny 운명록 - 당신의 사주(띠)와 별자리 운세를 확인하고, 나와 같은 기운을 가진 연예인(아이돌, 배우) 단짝을 찾아보세요."
+    />
+    <meta
+      name="keywords"
+      content="사주, 운세, 띠별운세, 별자리, 궁합, 사주팔자, Destiny, K-Zodiac, Horowitz, K-pop Idol Match"
+    />
+    <meta name="author" content="K-Destiny" />
+    <link rel="canonical" href="https://k-destiny.pages.dev/" />
 
     <!-- Open Graph (Facebook/Kakao/Instagram) -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://k-destiny.pages.dev/">
-    <meta property="og:title" content="운명록 (運命錄) - 당신의 하늘을 읽다">
-    <meta property="og:description" content="나의 사주와 별자리, 그리고 운명의 단짝 연예인은 누구일까요? 지금 바로 확인하세요.">
-    <meta property="og:image" content="https://k-destiny.pages.dev/assets/og-image.png">
-    <meta property="og:locale" content="ko_KR">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://k-destiny.pages.dev/" />
+    <meta property="og:title" content="운명록 (運命錄) - 당신의 하늘을 읽다" />
+    <meta
+      property="og:description"
+      content="나의 사주와 별자리, 그리고 운명의 단짝 연예인은 누구일까요? 지금 바로 확인하세요."
+    />
+    <meta
+      property="og:image"
+      content="https://k-destiny.pages.dev/assets/og-image.png"
+    />
+    <meta property="og:locale" content="ko_KR" />
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Book of Destiny (운명록)">
-    <meta name="twitter:description" content="Discover your Korean Zodiac destiny and find your celebrity soulmate.">
-    <meta name="twitter:image" content="https://k-destiny.pages.dev/assets/og-image.png">
-    <meta name="google-adsense-account" content="ca-pub-2335323730606517">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2335323730606517" crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Book of Destiny (운명록)" />
+    <meta
+      name="twitter:description"
+      content="Discover your Korean Zodiac destiny and find your celebrity soulmate."
+    />
+    <meta
+      name="twitter:image"
+      content="https://k-destiny.pages.dev/assets/og-image.png"
+    />
+    <meta name="google-adsense-account" content="ca-pub-2335323730606517" />
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2335323730606517"
+      crossorigin="anonymous"
+    ></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;500;700&family=Outfit:wght@300;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;500;700&family=Outfit:wght@300;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        serif: ['"Noto Serif KR"', 'serif'],
-                        sans: ['"Outfit"', 'sans-serif'],
-                    },
-                    colors: {
-                        night: '#0a0a1a',
-                        mystic: '#4b0082',
-                        gold: '#ffd700',
-                        paper: '#fdfbf7', // 한지 색상
-                        ink: '#2b2b2b',   // 먹물 색상
-                    }
-                }
-            }
-        }
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              serif: ['"Noto Serif KR"', "serif"],
+              sans: ['"Outfit"', "sans-serif"],
+            },
+            colors: {
+              night: "#0a0a1a",
+              mystic: "#4b0082",
+              gold: "#ffd700",
+              paper: "#fdfbf7", // 한지 색상
+              ink: "#2b2b2b", // 먹물 색상
+            },
+          },
+        },
+      };
     </script>
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "운명록 (Book of Destiny)",
-      "url": "https://k-destiny.pages.dev/",
-      "description": "생년월일을 기반으로 사주(띠)와 별자리를 분석하고, 나와 어울리는 연예인을 추천해주는 웹 애플리케이션입니다.",
-      "applicationCategory": "EntertainmentApplication",
-      "operatingSystem": "Any",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "운명록 (Book of Destiny)",
+        "url": "https://k-destiny.pages.dev/",
+        "description": "생년월일을 기반으로 사주(띠)와 별자리를 분석하고, 나와 어울리는 연예인을 추천해주는 웹 애플리케이션입니다.",
+        "applicationCategory": "EntertainmentApplication",
+        "operatingSystem": "Any",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
       }
-    }
     </script>
-</head>
-<body class="bg-night text-white font-serif min-h-screen flex flex-col items-center justify-center py-12 relative overflow-x-hidden selection:bg-gold selection:text-night">
-
+  </head>
+  <body
+    class="bg-night text-white font-serif min-h-screen flex flex-col items-center justify-center py-12 relative overflow-x-hidden selection:bg-gold selection:text-night"
+  >
     <!-- 배경 효과 (별) -->
     <div class="stars absolute inset-0 pointer-events-none fixed"></div>
     <!-- Fog & Noise -->
     <div class="fog-container fixed inset-0 pointer-events-none">
-        <div class="fog-layer"></div>
-        <div class="fog-layer delay"></div>
+      <div class="fog-layer"></div>
+      <div class="fog-layer delay"></div>
     </div>
     <div class="noise-overlay fixed inset-0 pointer-events-none"></div>
 
-    <div class="background-glow absolute inset-0 pointer-events-none highlight-gradient fixed"></div>
+    <div
+      class="background-glow absolute inset-0 pointer-events-none highlight-gradient fixed"
+    ></div>
 
     <main class="relative z-10 w-full max-w-md px-6">
-        <!-- 헤더 -->
-        <header class="text-center mb-8 animate-fade-in-down">
-            <h1 class="text-4xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-amber-100 to-amber-400 tracking-widest font-serif">운명록<span class="text-xl ml-2 font-light text-amber-500/80">(運命錄)</span></h1>
-            <p class="text-gray-400 font-light text-sm tracking-[0.2em] opacity-80">하늘의 이치를 기록하다</p>
-        </header>
+      <!-- 헤더 -->
+      <header class="text-center mb-8 animate-fade-in-down">
+        <h1
+          class="text-4xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-amber-100 to-amber-400 tracking-widest font-serif"
+        >
+          운명록<span class="text-xl ml-2 font-light text-amber-500/80"
+            >(運命錄)</span
+          >
+        </h1>
+        <p class="text-gray-400 font-light text-sm tracking-[0.2em] opacity-80">
+          하늘의 이치를 기록하다
+        </p>
+      </header>
 
-        <!-- 입력 섹션 -->
-        <section id="input-section" class="glass-panel p-8 rounded-xl shadow-2xl animate-fade-in-up border border-white/10 input-glow">
-            <form id="destiny-form" class="space-y-6">
-                <div class="input-glow rounded transition-all">
-                    <label for="username" class="block text-xs text-amber-200 mb-1 tracking-wider uppercase">Name</label>
-                    <input type="text" id="username" class="w-full bg-transparent border-b border-white/20 py-2 text-lg focus:outline-none focus:border-amber-400 transition-colors placeholder-white/30 text-center" placeholder="이름을 입력하세요" required>
-                </div>
-                
-                <div class="input-glow rounded transition-all">
-                    <label for="birthdate" class="block text-xs text-amber-200 mb-1 tracking-wider uppercase">Birth Date (Solar)</label>
-                    <input type="date" id="birthdate" class="w-full bg-transparent border-b border-white/20 py-2 text-lg focus:outline-none focus:border-amber-400 transition-colors text-center" required>
-                </div>
+      <!-- 입력 섹션 -->
+      <section
+        id="input-section"
+        class="glass-panel p-8 rounded-xl shadow-2xl animate-fade-in-up border border-white/10 input-glow"
+      >
+        <form id="destiny-form" class="space-y-6">
+          <div class="input-glow rounded transition-all">
+            <label
+              for="username"
+              class="block text-xs text-amber-200 mb-1 tracking-wider uppercase"
+              >Name</label
+            >
+            <input
+              type="text"
+              id="username"
+              class="w-full bg-transparent border-b border-white/20 py-2 text-lg focus:outline-none focus:border-amber-400 transition-colors placeholder-white/30 text-center"
+              placeholder="이름을 입력하세요"
+              required
+            />
+          </div>
 
-                <div>
-                    <label class="block text-xs text-amber-200 mb-2 tracking-wider uppercase">Birth Time</label>
-                    <div class="flex gap-2 justify-center">
-                        <select id="time-ampm" class="bg-white/5 border border-white/20 rounded px-2 py-2 text-sm focus:outline-none focus:border-amber-400 text-center w-24">
-                            <option value="am" class="text-black">오전</option>
-                            <option value="pm" class="text-black">오후</option>
-                        </select>
-                        <input type="number" id="time-hour" class="bg-transparent border-b border-white/20 w-16 py-2 text-center focus:outline-none focus:border-amber-400 placeholder-white/30" placeholder="시" min="1" max="12">
-                        <span class="self-center">:</span>
-                        <input type="number" id="time-minute" class="bg-transparent border-b border-white/20 w-16 py-2 text-center focus:outline-none focus:border-amber-400 placeholder-white/30" placeholder="분" min="0" max="59">
-                   </div>
-                   <p class="text-[10px] text-gray-500 mt-1 text-center">* 모르면 비워두셔도 됩니다</p>
-                </div>
+          <div class="input-glow rounded transition-all">
+            <label
+              for="birthdate"
+              class="block text-xs text-amber-200 mb-1 tracking-wider uppercase"
+              >Birth Date (Solar)</label
+            >
+            <input
+              type="date"
+              id="birthdate"
+              class="w-full bg-transparent border-b border-white/20 py-2 text-lg focus:outline-none focus:border-amber-400 transition-colors text-center"
+              required
+            />
+          </div>
 
-                <div>
-                    <span class="block text-xs text-amber-200 mb-3 tracking-wider uppercase">Gender</span>
-                    <div class="flex gap-4 justify-center">
-                        <label class="flex items-center gap-2 cursor-pointer group">
-                            <div class="w-5 h-5 rounded-full border border-white/30 flex items-center justify-center group-hover:border-amber-400">
-                                <input type="radio" name="gender" value="male" class="appearance-none w-3 h-3 rounded-full bg-amber-400 opacity-0 checked:opacity-100 transition-opacity" checked>
-                            </div>
-                            <span class="text-sm text-gray-300 group-hover:text-white transition-colors">남성</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer group">
-                            <div class="w-5 h-5 rounded-full border border-white/30 flex items-center justify-center group-hover:border-amber-400">
-                                <input type="radio" name="gender" value="female" class="appearance-none w-3 h-3 rounded-full bg-amber-400 opacity-0 checked:opacity-100 transition-opacity">
-                            </div>
-                            <span class="text-sm text-gray-300 group-hover:text-white transition-colors">여성</span>
-                        </label>
-                    </div>
-                </div>
-
-                <button type="submit" class="w-full py-4 mt-4 bg-gradient-to-r from-amber-600 to-amber-800 text-white font-bold rounded-lg hover:from-amber-500 hover:to-amber-700 transition-all transform hover:scale-[1.02] shadow-lg shadow-amber-900/30">
-                    운명 확인하기
-                </button>
-            </form>
-        </section>
-
-        <!-- 로딩 섹션 -->
-        <section id="loading-section" class="hidden text-center py-20 flex-col items-center justify-center h-full">
-            <div class="mystic-spinner mb-6 mx-auto"></div>
-            <h3 class="text-2xl font-light text-amber-100 mb-2 animate-pulse">천체의 흐름을 읽는 중...</h3>
-            <p class="text-sm text-white/50">잠시만 기다려주세요</p>
-        </section>
-
-        <!-- 결과 섹션 (사주 단자 스타일) -->
-        <section id="result-section" class="hidden relative animate-fade-in">
-            <!-- 사주 단자 배경 -->
-            <div class="bg-[#f0e6d2] p-6 rounded shadow-2xl relative overflow-hidden text-gray-800 border-2 border-[#8b5a2b]">
-                <div class="absolute inset-0 border border-[#8b5a2b] m-1 opacity-50 pointer-events-none"></div>
-                
-                <!-- 전통 문양 장식 (귀퉁이) -->
-                <div class="absolute top-2 left-2 text-[#8b5a2b] opacity-30">┏</div>
-                <div class="absolute top-2 right-2 text-[#8b5a2b] opacity-30">┓</div>
-                <div class="absolute bottom-2 left-2 text-[#8b5a2b] opacity-30">┗</div>
-                <div class="absolute bottom-2 right-2 text-[#8b5a2b] opacity-30">┛</div>
-
-                <div class="text-center border-b border-[#8b5a2b]/30 pb-4 mb-6">
-                    <h2 class="text-3xl font-bold text-[#5c3a1e] mb-1 font-serif">運命錄</h2>
-                    <p class="text-xs text-[#8b5a2b] tracking-[0.5em] uppercase">Private Destiny Report</p>
-                </div>
-                
-                <!-- AdSense: Top -->
-                <div class="adsense-slot adsense-top mb-6 border-dashed border-[#8b5a2b]/30 bg-[#8b5a2b]/5 text-[#8b5a2b]/50">
-                    <span>AD (Top Banner)</span>
-                </div>
-
-                <div class="space-y-6">
-                    <!-- 수신인 -->
-                    <div class="text-center">
-                        <p class="text-sm text-[#8b5a2b] mb-1">귀하의 명운(命運)</p>
-                        <h3 id="result-name" class="text-2xl font-bold text-black border-b border-gray-400 inline-block px-4 pb-1">OOO 님</h3>
-                    </div>
-                    
-                    <!-- Lucky Section (NEW) -->
-                    <div class="mt-2 p-3 border border-[#b08d5b]/30 bg-[#fffcf5]/50 flex justify-around text-center items-center rounded-sm">
-                        <div class="flex flex-col items-center">
-                            <p class="text-[10px] text-[#8b5a2b] font-bold mb-1 tracking-wider">LUCKY COLOR</p>
-                            <div id="lucky-color" class="w-6 h-6 rounded-full shadow-sm border border-black/10 mb-1"></div>
-                            <p id="lucky-color-name" class="text-xs text-[#5c3a1e] font-serif font-bold"></p>
-                        </div>
-                        <div class="w-px h-8 bg-[#b08d5b]/30"></div>
-                        <div class="flex flex-col items-center">
-                            <p class="text-[10px] text-[#8b5a2b] font-bold mb-1 tracking-wider">LUCKY NUMBER</p>
-                            <p id="lucky-number" class="text-xl font-bold text-[#5c3a1e] font-serif leading-none mt-1"></p>
-                        </div>
-                    </div>
-
-                    <!-- 사주 정보 카드 -->
-                    <div class="flex flex-col gap-4">
-                        <div class="border border-[#b08d5b] bg-[#fffcf5] p-4 relative">
-                            <span class="absolute -top-2 left-4 bg-[#f0e6d2] px-2 text-xs font-bold text-[#8b5a2b]">사주(四柱) - 띠</span>
-                            <div class="flex items-center justify-between">
-                                <div class="text-4xl text-[#8b5a2b]/20 font-serif absolute right-2 top-2 select-none">Year</div>
-                                <div>
-                                    <h4 id="result-ganji" class="text-2xl font-bold text-[#5c3a1e] mb-2">갑자 (쥐띠)</h4>
-                                    <div id="result-saju-desc" class="text-sm text-gray-700 leading-relaxed text-justify">
-                                        <!-- JS Content -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- AdSense: Middle -->
-                        <div class="adsense-slot adsense-middle border-dashed border-[#8b5a2b]/30 bg-[#8b5a2b]/5 text-[#8b5a2b]/50">
-                            <span>AD (Middle Rectangle)</span>
-                        </div>
-
-                        <div class="border border-[#b08d5b] bg-[#fffcf5] p-4 relative">
-                            <span class="absolute -top-2 left-4 bg-[#f0e6d2] px-2 text-xs font-bold text-[#8b5a2b]">천문(天文) - 별자리</span>
-                            <div class="flex items-center justify-between">
-                                <div class="text-4xl text-[#8b5a2b]/20 font-serif absolute right-2 top-2 select-none">Star</div>
-                                <div>
-                                    <h4 id="result-constellation" class="text-2xl font-bold text-[#5c3a1e] mb-2">염소자리</h4>
-                                    <div id="result-star-desc" class="text-sm text-gray-700 leading-relaxed text-justify">
-                                        <!-- JS Content -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 연예인 매칭 섹션 -->
-                        <div class="border-t border-[#8b5a2b]/20 pt-6 mt-6">
-                            <div class="text-center mb-4">
-                                <p class="text-xs text-[#8b5a2b] tracking-wider mb-1 font-sans uppercase">Destiny Connection</p>
-                                <h4 id="label-celeb" class="text-xl font-bold text-[#5c3a1e] font-serif">운명의 단짝</h4>
-                                <p id="desc-celeb" class="text-[10px] text-gray-500 mt-1">* 이름을 누르면 검색됩니다</p>
-                            </div>
-                            
-                            <div id="celebrity-list" class="grid grid-cols-2 gap-3">
-                                <!-- JS Generated -->
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="text-center mt-6">
-                        <p class="text-xs text-[#8b5a2b] mb-4">
-                            "운명은 정해진 것이 아니라, <br>스스로 개척해 나가는 것입니다."
-                        </p>
-                        <button id="btn-reset" class="bg-[#5c3a1e] text-[#f0e6d2] px-6 py-2 rounded text-sm hover:bg-[#3e2714] transition-colors border border-[#3e2714]">
-                            다시 기록하기
-                        </button>
-                        
-                        <!-- Share Button -->
-                        <button id="btn-share" class="mt-4 text-[#8b5a2b] text-xs font-bold uppercase tracking-wider hover:text-[#5c3a1e] flex items-center justify-center gap-2 mx-auto transition-colors p-2 rounded hover:bg-[#8b5a2b]/10">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/></svg>
-                            <span id="label-share">Share Result</span>
-                        </button>
-                    </div>
-                    
-                    <!-- AdSense: Bottom -->
-                    <div class="adsense-slot adsense-bottom mt-6 border-dashed border-[#8b5a2b]/30 bg-[#8b5a2b]/5 text-[#8b5a2b]/50">
-                        <span>AD (Bottom Banner)</span>
-                    </div>
-                </div>
+          <div>
+            <label
+              class="block text-xs text-amber-200 mb-2 tracking-wider uppercase"
+              >Birth Time</label
+            >
+            <div class="flex gap-2 justify-center">
+              <select
+                id="time-ampm"
+                class="bg-white/5 border border-white/20 rounded px-2 py-2 text-sm focus:outline-none focus:border-amber-400 text-center w-24"
+              >
+                <option value="am" class="text-black">오전</option>
+                <option value="pm" class="text-black">오후</option>
+              </select>
+              <input
+                type="number"
+                id="time-hour"
+                class="bg-transparent border-b border-white/20 w-16 py-2 text-center focus:outline-none focus:border-amber-400 placeholder-white/30"
+                placeholder="시"
+                min="1"
+                max="12"
+              />
+              <span class="self-center">:</span>
+              <input
+                type="number"
+                id="time-minute"
+                class="bg-transparent border-b border-white/20 w-16 py-2 text-center focus:outline-none focus:border-amber-400 placeholder-white/30"
+                placeholder="분"
+                min="0"
+                max="59"
+              />
             </div>
-        </section>
+            <p class="text-[10px] text-gray-500 mt-1 text-center">
+              * 모르면 비워두셔도 됩니다
+            </p>
+          </div>
+
+          <div>
+            <span
+              class="block text-xs text-amber-200 mb-3 tracking-wider uppercase"
+              >Gender</span
+            >
+            <div class="flex gap-4 justify-center">
+              <label class="flex items-center gap-2 cursor-pointer group">
+                <div
+                  class="w-5 h-5 rounded-full border border-white/30 flex items-center justify-center group-hover:border-amber-400"
+                >
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="male"
+                    class="appearance-none w-3 h-3 rounded-full bg-amber-400 opacity-0 checked:opacity-100 transition-opacity"
+                    checked
+                  />
+                </div>
+                <span
+                  class="text-sm text-gray-300 group-hover:text-white transition-colors"
+                  >남성</span
+                >
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer group">
+                <div
+                  class="w-5 h-5 rounded-full border border-white/30 flex items-center justify-center group-hover:border-amber-400"
+                >
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="female"
+                    class="appearance-none w-3 h-3 rounded-full bg-amber-400 opacity-0 checked:opacity-100 transition-opacity"
+                  />
+                </div>
+                <span
+                  class="text-sm text-gray-300 group-hover:text-white transition-colors"
+                  >여성</span
+                >
+              </label>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full py-4 mt-4 bg-gradient-to-r from-amber-600 to-amber-800 text-white font-bold rounded-lg hover:from-amber-500 hover:to-amber-700 transition-all transform hover:scale-[1.02] shadow-lg shadow-amber-900/30"
+          >
+            운명 확인하기
+          </button>
+        </form>
+      </section>
+
+      <!-- 로딩 섹션 -->
+      <section
+        id="loading-section"
+        class="hidden text-center py-20 flex-col items-center justify-center h-full"
+      >
+        <div class="mystic-spinner mb-6 mx-auto"></div>
+        <h3 class="text-2xl font-light text-amber-100 mb-2 animate-pulse">
+          천체의 흐름을 읽는 중...
+        </h3>
+        <p class="text-sm text-white/50">잠시만 기다려주세요</p>
+      </section>
+
+      <!-- 결과 섹션 (사주 단자 스타일) -->
+      <section id="result-section" class="hidden relative animate-fade-in">
+        <!-- 사주 단자 배경 -->
+        <div
+          class="bg-[#f0e6d2] p-6 rounded shadow-2xl relative overflow-hidden text-gray-800 border-2 border-[#8b5a2b]"
+        >
+          <div
+            class="absolute inset-0 border border-[#8b5a2b] m-1 opacity-50 pointer-events-none"
+          ></div>
+
+          <!-- 전통 문양 장식 (귀퉁이) -->
+          <div class="absolute top-2 left-2 text-[#8b5a2b] opacity-30">┏</div>
+          <div class="absolute top-2 right-2 text-[#8b5a2b] opacity-30">┓</div>
+          <div class="absolute bottom-2 left-2 text-[#8b5a2b] opacity-30">
+            ┗
+          </div>
+          <div class="absolute bottom-2 right-2 text-[#8b5a2b] opacity-30">
+            ┛
+          </div>
+
+          <div class="text-center border-b border-[#8b5a2b]/30 pb-4 mb-6">
+            <h2 class="text-3xl font-bold text-[#5c3a1e] mb-1 font-serif">
+              運命錄
+            </h2>
+            <p class="text-xs text-[#8b5a2b] tracking-[0.5em] uppercase">
+              Private Destiny Report
+            </p>
+          </div>
+
+          <!-- AdSense: Top -->
+          <div
+            class="adsense-slot adsense-top mb-6 border-dashed border-[#8b5a2b]/30 bg-[#8b5a2b]/5 text-[#8b5a2b]/50"
+          >
+            <span>AD (Top Banner)</span>
+          </div>
+
+          <div class="space-y-6">
+            <!-- 수신인 -->
+            <div class="text-center">
+              <p class="text-sm text-[#8b5a2b] mb-1">귀하의 명운(命運)</p>
+              <h3
+                id="result-name"
+                class="text-2xl font-bold text-black border-b border-gray-400 inline-block px-4 pb-1"
+              >
+                OOO 님
+              </h3>
+            </div>
+
+            <!-- Lucky Section (NEW) -->
+            <div
+              class="mt-2 p-3 border border-[#b08d5b]/30 bg-[#fffcf5]/50 flex justify-around text-center items-center rounded-sm"
+            >
+              <div class="flex flex-col items-center">
+                <p
+                  class="text-[10px] text-[#8b5a2b] font-bold mb-1 tracking-wider"
+                >
+                  LUCKY COLOR
+                </p>
+                <div
+                  id="lucky-color"
+                  class="w-6 h-6 rounded-full shadow-sm border border-black/10 mb-1"
+                ></div>
+                <p
+                  id="lucky-color-name"
+                  class="text-xs text-[#5c3a1e] font-serif font-bold"
+                ></p>
+              </div>
+              <div class="w-px h-8 bg-[#b08d5b]/30"></div>
+              <div class="flex flex-col items-center">
+                <p
+                  class="text-[10px] text-[#8b5a2b] font-bold mb-1 tracking-wider"
+                >
+                  LUCKY NUMBER
+                </p>
+                <p
+                  id="lucky-number"
+                  class="text-xl font-bold text-[#5c3a1e] font-serif leading-none mt-1"
+                ></p>
+              </div>
+            </div>
+
+            <!-- 사주 정보 카드 -->
+            <div class="flex flex-col gap-4">
+              <div class="border border-[#b08d5b] bg-[#fffcf5] p-4 relative">
+                <span
+                  class="absolute -top-2 left-4 bg-[#f0e6d2] px-2 text-xs font-bold text-[#8b5a2b]"
+                  >사주(四柱) - 띠</span
+                >
+                <div class="flex items-center justify-between">
+                  <div
+                    class="text-4xl text-[#8b5a2b]/20 font-serif absolute right-2 top-2 select-none"
+                  >
+                    Year
+                  </div>
+                  <div>
+                    <h4
+                      id="result-ganji"
+                      class="text-2xl font-bold text-[#5c3a1e] mb-2"
+                    >
+                      갑자 (쥐띠)
+                    </h4>
+                    <div
+                      id="result-saju-desc"
+                      class="text-sm text-gray-700 leading-relaxed text-justify"
+                    >
+                      <!-- JS Content -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- AdSense: Middle -->
+              <div
+                class="adsense-slot adsense-middle border-dashed border-[#8b5a2b]/30 bg-[#8b5a2b]/5 text-[#8b5a2b]/50"
+              >
+                <span>AD (Middle Rectangle)</span>
+              </div>
+
+              <div class="border border-[#b08d5b] bg-[#fffcf5] p-4 relative">
+                <span
+                  class="absolute -top-2 left-4 bg-[#f0e6d2] px-2 text-xs font-bold text-[#8b5a2b]"
+                  >천문(天文) - 별자리</span
+                >
+                <div class="flex items-center justify-between">
+                  <div
+                    class="text-4xl text-[#8b5a2b]/20 font-serif absolute right-2 top-2 select-none"
+                  >
+                    Star
+                  </div>
+                  <div>
+                    <h4
+                      id="result-constellation"
+                      class="text-2xl font-bold text-[#5c3a1e] mb-2"
+                    >
+                      염소자리
+                    </h4>
+                    <div
+                      id="result-star-desc"
+                      class="text-sm text-gray-700 leading-relaxed text-justify"
+                    >
+                      <!-- JS Content -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 연예인 매칭 섹션 -->
+              <div class="border-t border-[#8b5a2b]/20 pt-6 mt-6">
+                <div class="text-center mb-4">
+                  <p
+                    class="text-xs text-[#8b5a2b] tracking-wider mb-1 font-sans uppercase"
+                  >
+                    Destiny Connection
+                  </p>
+                  <h4
+                    id="label-celeb"
+                    class="text-xl font-bold text-[#5c3a1e] font-serif"
+                  >
+                    운명의 단짝
+                  </h4>
+                  <p id="desc-celeb" class="text-[10px] text-gray-500 mt-1">
+                    * 이름을 누르면 검색됩니다
+                  </p>
+                </div>
+
+                <div id="celebrity-list" class="grid grid-cols-2 gap-3">
+                  <!-- JS Generated -->
+                </div>
+              </div>
+            </div>
+
+            <div class="text-center mt-6">
+              <p class="text-xs text-[#8b5a2b] mb-4">
+                "운명은 정해진 것이 아니라, <br />스스로 개척해 나가는
+                것입니다."
+              </p>
+              <button
+                id="btn-reset"
+                class="bg-[#5c3a1e] text-[#f0e6d2] px-6 py-2 rounded text-sm hover:bg-[#3e2714] transition-colors border border-[#3e2714]"
+              >
+                다시 기록하기
+              </button>
+
+              <!-- Share Button -->
+              <button
+                id="btn-share"
+                class="mt-4 text-[#8b5a2b] text-xs font-bold uppercase tracking-wider hover:text-[#5c3a1e] flex items-center justify-center gap-2 mx-auto transition-colors p-2 rounded hover:bg-[#8b5a2b]/10"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+                  <polyline points="16 6 12 2 8 6" />
+                  <line x1="12" x2="12" y1="2" y2="15" />
+                </svg>
+                <span id="label-share">Share Result</span>
+              </button>
+            </div>
+
+            <!-- AdSense: Bottom -->
+            <div
+              class="adsense-slot adsense-bottom mt-6 border-dashed border-[#8b5a2b]/30 bg-[#8b5a2b]/5 text-[#8b5a2b]/50"
+            >
+              <span>AD (Bottom Banner)</span>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
-
     <!-- 언어 변경 버튼 -->
-    <button id="lang-toggle" class="absolute top-4 right-4 z-50 bg-white/10 backdrop-blur-md border border-white/20 text-white/80 px-3 py-1 rounded-full text-xs hover:bg-white/20 transition-all font-sans uppercase tracking-widest">
-        KR / <span class="text-amber-400 font-bold">EN</span>
+    <button
+      id="lang-toggle"
+      class="absolute top-4 right-4 z-50 bg-white/10 backdrop-blur-md border border-white/20 text-white/80 px-3 py-1 rounded-full text-xs hover:bg-white/20 transition-all font-sans uppercase tracking-widest"
+    >
+      KR / <span class="text-amber-400 font-bold">EN</span>
     </button>
 
     <script src="data.js"></script>
     <script src="data_en.js"></script>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
