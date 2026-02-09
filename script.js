@@ -161,10 +161,16 @@ document.addEventListener("DOMContentLoaded", () => {
       form.reset();
     });
 
-    // Share Button Event
-    if (btnShare) {
-        btnShare.addEventListener("click", () => handleShare(currentLang));
-    }
+    // Share Button Events
+    const btnKakao = document.getElementById("btn-kakao");
+    const btnTwitter = document.getElementById("btn-twitter");
+    const btnFacebook = document.getElementById("btn-facebook");
+    const btnLink = document.getElementById("btn-link");
+
+    if (btnKakao) btnKakao.addEventListener("click", () => handleSNSShare('kakao', currentLang));
+    if (btnTwitter) btnTwitter.addEventListener("click", () => handleSNSShare('twitter', currentLang));
+    if (btnFacebook) btnFacebook.addEventListener("click", () => handleSNSShare('facebook', currentLang));
+    if (btnLink) btnLink.addEventListener("click", () => handleSNSShare('link', currentLang));
 });
   
 function updateLanguage(lang) {
@@ -242,8 +248,8 @@ function updateLanguage(lang) {
     // Quote & Buttons
     document.querySelector("#result-section .text-center.mt-6 p").innerHTML = t.quote;
     document.getElementById("btn-reset").textContent = t.btnReset;
-    const btnShareLabel = document.querySelector("#label-share");
-    if(btnShareLabel) btnShareLabel.textContent = lang === 'ko' ? "운명 공유하기" : "Share Result";
+    const labelShare = document.querySelector("#label-share");
+    if(labelShare) labelShare.textContent = lang === 'ko' ? "운명 공유하기" : "Share Result";
 
     // FAQ Translations
     const faqTitle = document.getElementById("faq-title");
@@ -376,50 +382,93 @@ function updateResultUI(username, birthdate, lang) {
     renderCelebrities(branchKey, lang);
 }
 
-// 공유 기능
-async function handleShare(lang) {
+// SNS Sharing Functions
+async function handleSNSShare(platform, lang) {
     if (!storedUserData) return;
-    
-    // 현재 결과 데이터 재확인
+
+    // Data Preparation
     const fortuneData = lang === "ko" ? window.FORTUNE_DATA : window.FORTUNE_DATA_EN;
     const dateObj = new Date(storedUserData.birthdate);
     const year = dateObj.getFullYear();
     const month = dateObj.getMonth() + 1;
     const day = dateObj.getDate();
     
-    // Simple recalculation for share text
     const stems = ["경", "신", "임", "계", "갑", "을", "병", "정", "무", "기"];
     const branches = ["신", "유", "술", "해", "자", "축", "인", "묘", "진", "사", "오", "미"];
     const branchKey = branches[year % 12];
     const animal = fortuneData.earthlyBranches[branchKey].animal;
     const star = getConstellation(fortuneData.constellations, month, day).name;
 
-    const shareTitle = lang === 'ko' ? "운명록 (運命錄)" : "Book of Destiny";
-    const shareText = lang === 'ko' 
-        ? `[운명록] ${storedUserData.username}님의 운명: ${animal}띠 & ${star}. 당신의 운명도 확인해보세요.`
-        : `[K-Destiny] ${storedUserData.username}'s Destiny: ${animal} & ${star}. Check yours now!`;
     const url = window.location.href;
+    const cleanUrl = url.split('?')[0]; // Remove query params for cleaner sharing
 
-    if (navigator.share) {
-        try {
-            await navigator.share({
-                title: shareTitle,
-                text: shareText,
-                url: url,
-            });
-        } catch (error) {
-            console.log('Share canceled', error);
-        }
+    // Viral Text Generation
+    let shareTitle, shareText;
+    if (lang === 'ko') {
+        shareTitle = "운명록 (運命錄)";
+        shareText = `[운명록] 😲 저는 '${animal}띠'의 기운을 타고났어요! \n저의 운명의 단짝 연예인은 누구일까요? \n지금 바로 확인해보세요. #운명록 #사주 #띠별운세`;
     } else {
-        // Fallback: Copy to clipboard
+        shareTitle = "Book of Destiny";
+        shareText = `[K-Destiny] 😲 I was born with the energy of the ${animal}! \nWho is my celebrity soulmate? \nCheck yours now! #KDestiny #Saju #Zodiac`;
+    }
+
+    switch (platform) {
+        case 'kakao':
+            shareKakao(shareTitle, shareText, cleanUrl, animal);
+            break;
+        case 'twitter':
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(cleanUrl)}`;
+            window.open(twitterUrl, '_blank');
+            break;
+        case 'facebook':
+            const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(cleanUrl)}`;
+            window.open(fbUrl, '_blank');
+            break;
+        case 'link':
+            try {
+                await navigator.clipboard.writeText(`${shareText}\n${cleanUrl}`);
+                alert(lang === 'ko' ? "링크가 복사되었습니다." : "Link copied to clipboard!");
+            } catch (err) {
+                console.error('Clipboard failed', err);
+                alert(lang === 'ko' ? "복사에 실패했습니다." : "Failed to copy.");
+            }
+            break;
+    }
+}
+
+function shareKakao(title, description, link, animal) {
+    if (!window.Kakao) return;
+    if (!Kakao.isInitialized()) {
+        // User should replace this with their actual key
         try {
-            await navigator.clipboard.writeText(`${shareText}\n${url}`);
-            alert(lang === 'ko' ? "결과가 클립보드에 복사되었습니다." : "Result copied to clipboard!");
-        } catch (err) {
-            console.error('Clipboard failed', err);
-            alert(lang === 'ko' ? "공유할 수 없습니다." : "Failed to copy.");
+            Kakao.init('YOUR_KAKAO_JAVASCRIPT_KEY'); 
+        } catch(e) {
+            console.error("Kakao init failed. Please check your key.");
+            return alert("Kakao Share is not configured.");
         }
     }
+
+    Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+            title: title,
+            description: description,
+            imageUrl: 'https://k-destiny.pages.dev/assets/og-image.png', // Ensure this image exists
+            link: {
+                mobileWebUrl: link,
+                webUrl: link,
+            },
+        },
+        buttons: [
+            {
+                title: '결과 확인하기 (View Result)',
+                link: {
+                    mobileWebUrl: link,
+                    webUrl: link,
+                },
+            },
+        ],
+    });
 }
 
 // Celebrity Rendering
